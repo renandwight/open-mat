@@ -1,0 +1,103 @@
+# -------------------------
+# Python / Django
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# Django & Python artifacts
+*.log
+*.pot
+*.pyc
+*.mo
+*.pickle
+*.db
+*.sqlite3
+local_settings.py
+
+# Static & media files (generated)
+media/
+staticfiles/
+static/
+
+# -------------------------
+# PostgreSQL
+# -------------------------
+pgdata/
+*.sql
+*.backup
+
+# -------------------------
+# Build / Packaging Artifacts
+# -------------------------
+build/
+dist/
+.eggs/
+*.egg-info/
+MANIFEST
+
+# -------------------------
+# Testing / Coverage
+# -------------------------
+htmlcov/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# -------------------------
+# Node / React (client app)
+# -------------------------
+node_modules/
+
+# Frontend environment files
+client/.env
+client/.env.local
+client/.env.development
+client/.env.production
+client/.env.test
+
+# Frontend build output
+client/dist/
+client/build/
+
+# Frontend logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# -------------------------
+# Editor / IDE
+# -------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# -------------------------
+# OS Junk Files
+# -------------------------
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+*~
+*.swp
+*.swo
+
+# -------------------------
+# Other
+# -------------------------
+playground.py
