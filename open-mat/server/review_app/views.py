@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from user_app.views import UserPermissions
+from user_app.views import UserPermission
 from rest_framework.response import Response
 from rest_framework import status as s
 from rest_framework.permissions import AllowAny
@@ -25,7 +25,7 @@ class GymReviews(APIView):
 
 
 # POST /api/reviews/
-class CreateReview(UserPermissions):
+class CreateReview(UserPermission):
 
     def post(self, request):
         serializer = ReviewWriteSerializer(data=request.data)
@@ -39,7 +39,7 @@ class CreateReview(UserPermissions):
 
 # PUT /api/reviews/<id>/
 # DELETE /api/reviews/<id>/
-class ReviewDetail(UserPermissions):
+class ReviewDetail(UserPermission):
 
     def put(self, request, id):
         review = get_object_or_404(Review, id=id)
