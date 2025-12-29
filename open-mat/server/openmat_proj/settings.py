@@ -51,6 +51,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'user_app',
+    
+    
+    'gym_app'
+    
+    
+    
 ]
 # for user_app - arnold
 AUTH_USER_MODEL = 'user_app.Client'
