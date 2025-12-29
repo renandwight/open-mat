@@ -1,3 +1,55 @@
 from django.shortcuts import render
+from rest_framework.views import APIView
+from django.contrib.auth import authenticate
+from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import status as s
+from .serializers import ClientSerializer,   UserSerializer
+from rest_framework.authtoken.models import Token
+from .models import User, Client
 
 # Create your views here.
+
+class UserPermission(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class Signup(APIView):
+    def post(self, request):
+        data = request.data.copy()
+        data['username'] = data.get('email')
+        serializer = ClientSerializer(data=data)
+        if serializer.is_valid():
+            user= serializer.save()
+            token, _ = Token.objects.get_or_create(user=user)
+            return Response({'client': user.email, 'token':token.key}, status=s.HTTP_201_CREATED)
+        return Response(serializer.errors, status=s.HTTP_400_BAD_REQUEST)
+class Login(APIView):
+    def post(self, request):
+        data = request.data.copy()
+        data['username'] = data.get('email')
+        user = authenticate(
+            username= data.get('username'), password=data.get('password')
+
+        )
+        if user:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({
+                
+                'client' : user.email,
+                'token' : token.key
+            }, status= s.HTTP_200_OK)
+        else:
+            return Response('not a user', status=s.HTTP_404_NOT_FOUND)
+
+class Logout(UserPermission):
+    def post(self, request):
+        try: 
+            request.user.auth_token.delete()
+        except:
+            pass
+        return Response('logged out', status=s.HTTP_204_NO_CONTENT)
+
+    

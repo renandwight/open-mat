@@ -11,6 +11,7 @@ venv/
 env/
 ENV/
 
+
 # Environment variables
 .env
 .env.*
@@ -101,3 +102,5 @@ $RECYCLE.BIN/
 # Other
 # -------------------------
 playground.py
+.denv
+.vscode
