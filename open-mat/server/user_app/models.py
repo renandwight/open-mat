@@ -4,7 +4,7 @@ from django.conf import settings
 
 # Create your models here.
 
-class client(AbstractUser):
+class Client(AbstractUser):
     email = models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'
@@ -13,23 +13,27 @@ class client(AbstractUser):
     def __str__(self):
         return self.email
     
-User = settings.AUTH_USER_MODEL
+User1 = settings.AUTH_USER_MODEL
 class User(models.Model):
     
-    user1 = models.OneToOneField(
-        User,
+    user_x = models.OneToOneField(
+        User1,
         on_delete=models.CASCADE,
-        related_name='user'
+        related_name='user_profile'
         
     )
-    email = models.EmailField(unique=True)
+    
     first_name = models.CharField(max_length=50, blank=True)
     last_name=models.CharField(max_length=50, blank=True)
     street = models.CharField(max_length=255, blank=True)
     state = models.CharField(max_length=2, blank=True)
     zip = models.IntegerField(null=True, blank=True)
-    is_owner = models.BooleanField(null=True, blank=True)
-    is_verified = models.BooleanField(null=True, blank=True)
-    created_at = models.DateTimeField()
-    updated_at = models.DateTimeField()
+    is_owner = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user_x.email
+
     

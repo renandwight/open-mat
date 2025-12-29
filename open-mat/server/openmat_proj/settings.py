@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'user_app',
 ]
 # for user_app - arnold
-AUTH_USER_MODEL = 'user_app.'
+AUTH_USER_MODEL = 'user_app.Client'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
