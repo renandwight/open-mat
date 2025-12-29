@@ -12,7 +12,7 @@ class Gym(models.Model):
     zip = models.IntegerField(max_length=5, unique=False)
     latitude = models.IntegerField(max_length=2, unique=False)
     longitude = models.IntegerField(max_length=2, unique=False)
-    created_by = models.ForeignKey(User, related_name='Gym')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='Gym',null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=created_at)
     
