@@ -101,3 +101,5 @@ $RECYCLE.BIN/
 # Other
 # -------------------------
 playground.py
+.denv
+.vscode

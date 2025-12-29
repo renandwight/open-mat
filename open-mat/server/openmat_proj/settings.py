@@ -59,9 +59,18 @@ INSTALLED_APPS = [
 
 
     'dojo_app',
+    'review_app',
+    'event_app',
+    'favorite_app',
+    
+    
+    'gym_app'
+    
+    
+    
 ]
-
-# AUTH_USER_MODEL = 'user_app.'
+# for user_app - arnold
+AUTH_USER_MODEL = 'user_app.Client'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +85,10 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework.authentication.TokenAuthentication',]
+		'rest_framework.authentication.TokenAuthentication',],
+ "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
         }
 
 ROOT_URLCONF = 'openmat_proj.urls'
