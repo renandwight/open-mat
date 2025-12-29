@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv("./.env")
+load_dotenv("./.denv")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -27,6 +27,8 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get("DEBUG"))
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -52,9 +54,15 @@ INSTALLED_APPS = [
 
 
     'favorite_app',
+    
+    
+    'gym_app'
+    
+    
+    
 ]
-
-# AUTH_USER_MODEL = 'user_app.'
+# for user_app - arnold
+AUTH_USER_MODEL = 'user_app.Client'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,7 +77,10 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework.authentication.TokenAuthentication',]
+		'rest_framework.authentication.TokenAuthentication',],
+ "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
         }
 
 ROOT_URLCONF = 'openmat_proj.urls'
