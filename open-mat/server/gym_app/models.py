@@ -5,10 +5,10 @@ from django.utils import timezone
 # Create your models here.
 class Gym(models.Model):
     #name field for gyms
-    name = models.CharField(maxLength=200, unique=True, blank=False, null=False)
-    street = models.CharField(maxLength=200, unique=False, blank=False, null=False)
-    city = models.CharField(maxLength=200, unique=False, blank=False, null=False)
-    state = models.TextField(maxLength=2, unique=False, blank=False)
+    name = models.CharField(max_length=200, unique=True, blank=False, null=False)
+    street = models.CharField(max_length=200, unique=False, blank=False, null=False)
+    city = models.CharField(max_length=200, unique=False, blank=False, null=False)
+    state = models.TextField(max_length=2, unique=False, blank=False)
     zip = models.IntegerField(max_length=5, unique=False)
     latitude = models.IntegerField(max_length=2, unique=False)
     longitude = models.IntegerField(max_length=2, unique=False)
