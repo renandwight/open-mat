@@ -59,7 +59,7 @@ INSTALLED_APPS = [
 
 
 
-
+    
     'dojo_app',
     'review_app',
     'event_app',
