@@ -31,4 +31,10 @@ urlpatterns = [
 
 
     path('api/dojo/', include('dojo_app.urls')),
+
+
+
+
+
+    path('api/users/favorites/', include('favorite_app.urls'))
 ]
