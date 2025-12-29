@@ -1,4 +1,6 @@
 from django.db import models
+from gym_app.models import Gym
+from user_app.models import User
 
 class Event(models.Model):
     gym=models.ForeignKey(Gym, on_delete=models.CASCADE, related_name='gym_events')
