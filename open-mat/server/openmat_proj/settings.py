@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'user_app',
+
+
+    'favorite_app',
     
     
     'gym_app'
