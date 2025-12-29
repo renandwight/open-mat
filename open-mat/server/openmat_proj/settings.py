@@ -26,7 +26,9 @@ load_dotenv("./.env")
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-temporary-dev-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+DEBUG = eval(os.environ.get("DEBUG"))
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "localhost",
@@ -59,9 +61,18 @@ INSTALLED_APPS = [
 
 
     'dojo_app',
+    'review_app',
+    'event_app',
+    'favorite_app',
+    
+    
+    'gym_app'
+    
+    
+    
 ]
-
-# AUTH_USER_MODEL = 'user_app.'
+# for user_app - arnold
+AUTH_USER_MODEL = 'user_app.Client'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +87,10 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework.authentication.TokenAuthentication',]
+		'rest_framework.authentication.TokenAuthentication',],
+ "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
         }
 
 ROOT_URLCONF = 'openmat_proj.urls'
