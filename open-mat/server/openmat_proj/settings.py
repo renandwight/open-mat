@@ -52,6 +52,14 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'user_app',
+
+
+
+
+
+
+
+    
     'dojo_app',
     'review_app',
     'event_app',
