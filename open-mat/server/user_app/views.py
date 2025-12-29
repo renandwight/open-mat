@@ -16,7 +16,7 @@ class UserPermission(APIView):
     permission_classes = [IsAuthenticated]
 
 
-class Signup(APIView):
+class Register(APIView):
     def post(self, request):
         data = request.data.copy()
         data['username'] = data.get('email')
@@ -52,4 +52,34 @@ class Logout(UserPermission):
             pass
         return Response('logged out', status=s.HTTP_204_NO_CONTENT)
 
+class Info(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = ClientSerializer(request.user)
+        return Response(serializer.data)
     
+class UserView(UserPermission):
+    
+    def get(self, request):
+        user_profile, _ = User.objects.get_or_create(user=request.user)
+        serializer = UserSerializer(user_profile) 
+        return Response(serializer.data, status=s.HTTP_200_OK)
+    def post(self, request):
+        user_profile, _ = User.objects.get_or_create(user=request.user)
+        serializer = UserSerializer(user_profile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=s.HTTP_201_CREATED)
+    def put(self, request):
+        user_profile =User.objects.get(user=request.user)
+        serializer = UserSerializer(user_profile, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=s.HTTP_200_OK)
+    def delete(self,  request):
+        user_profile = User.objects.get(user=request.user)
+        user_profile.delete()
+        return Response(status=s.HTTP_204_NO_CONTENT)
+        
