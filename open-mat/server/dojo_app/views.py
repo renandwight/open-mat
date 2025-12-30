@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,7 +8,15 @@ from .serializers import TechniqueSerializer, TechniqueListSerializer
 
 
 class TechniqueList(APIView):
+    """
+    List all techniques or create a new technique.
+    
+    GET /api/dojo/techniques/
+    POST /api/dojo/techniques/
+    """
+    
     def get(self, request):
+        """List all techniques with optional filtering."""
         techniques = Technique.objects.all()
         
         category = request.query_params.get('category')
@@ -36,6 +41,7 @@ class TechniqueList(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        """Create a new technique (admin only)."""
         serializer = TechniqueSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,12 +50,22 @@ class TechniqueList(APIView):
 
 
 class TechniqueDetail(APIView):
+    """
+    Retrieve, update or delete a technique.
+    
+    GET /api/dojo/techniques/:id/
+    PUT /api/dojo/techniques/:id/
+    DELETE /api/dojo/techniques/:id/
+    """
+    
     def get(self, request, pk):
+        """Retrieve a single technique."""
         technique = get_object_or_404(Technique, pk=pk)
         serializer = TechniqueSerializer(technique)
         return Response(serializer.data)
     
     def put(self, request, pk):
+        """Update a technique (admin only)."""
         technique = get_object_or_404(Technique, pk=pk)
         serializer = TechniqueSerializer(technique, data=request.data)
         if serializer.is_valid():
@@ -58,6 +74,7 @@ class TechniqueDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request, pk):
+        """Delete a technique (admin only)."""
         technique = get_object_or_404(Technique, pk=pk)
         technique.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
