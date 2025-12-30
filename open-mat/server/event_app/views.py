@@ -10,10 +10,12 @@ from .serializers import EventReadSerializer, EventWriteSerializer
 from user_app.views import UserPermission
 
 class EventListCreateView(APIView):
+    authentication_classes = UserPermission.authentication_classes
+
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
-        return UserPermission
+        return UserPermission.permission_classes
 
     def get(self, request):
         events = Event.objects.select_related("gym", "user").order_by("-event_date")
@@ -29,10 +31,12 @@ class EventListCreateView(APIView):
 
 
 class EventDetailView(APIView):
+    authentication_classes = UserPermission.authentication_classes
+
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
-        return UserPermission
+        return UserPermission.permission_classes
 
     def get_object(self, id):
         return get_object_or_404(Event.objects.select_related("gym", "user"), id=id)

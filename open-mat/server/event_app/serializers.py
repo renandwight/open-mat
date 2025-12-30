@@ -1,12 +1,25 @@
-from rest_framework.serializers import ModelSerializer, ValidationError
+from rest_framework.serializers import ModelSerializer, ValidationError, PrimaryKeyRelatedField
 from .models import Event
+# from gym_app.serializers import GymSerializer
+from gym_app.models import Gym
+from user_app.serializers import UserSerializer
+
+
+
+class GymEventSerializer(ModelSerializer):
+    class Meta:
+        model = Gym
+        fields = ["id","name"]
 
 class EventReadSerializer(ModelSerializer):
+    gym=GymEventSerializer(read_only=True)
+    user=UserSerializer(read_only=True)
+
     class Meta:
         model = Event
         fields = [
             "id",
-            "gym",
+            "gym"
             "user",
             "event_date",
             "gi",
@@ -19,10 +32,12 @@ class EventReadSerializer(ModelSerializer):
         read_only_fields = ["id", "created_at", "updated_at"]
 
 class EventWriteSerializer(ModelSerializer):
+    gym_id=PrimaryKeyRelatedField(queryset=Gym.objects.all(), source="gym", write_only=True)
+
     class Meta:
         model = Event
         fields = [
-            "gym",
+            "gym_id",
             "event_date",
             "gi",
             "fee",
