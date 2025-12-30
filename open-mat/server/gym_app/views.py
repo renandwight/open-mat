@@ -50,7 +50,7 @@ class Filtered_Gyms(APIView):
         serializer = GymSerializer(gyms, many=True)
         return Response(serializer.data)
        
-class A_Gym():
+class A_Gym(APIView):
     def get_a_gym(self, id):
         gym = None
         if type(id)==int:
