@@ -14,7 +14,7 @@ class Gym(models.Model):
     longitude = models.FloatField()
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='Gyms',null=True)
     created_at = models.DateTimeField(default=timezone.now)
-    updated_at = models.DateTimeField(default=created_at)
+    updated_at = models.DateTimeField(auto_now=True)
     
     
      
