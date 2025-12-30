@@ -20,13 +20,20 @@ class All_Gyms(APIView):
     def post(self, request):
         #do something to grab the latitude, longitude of the gym.
         new_gym=GymSerializer(data=request.data)
-        new_gym.save()
+        if new_gym.is_valid():
+            new_gym.save()
+            return Response(new_gym.data, status=HTTP_201_CREATED)
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
         #should probably add a validation check
-        return Response(new_gym.data, status=HTTP_201_CREATED)
+        
 
 class Nearby_Gyms(APIView):
     def get(self, request):
         #must calculate distance from user 
+        #request should pass address
+        data = request.data
+        
         gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
         return Response(gyms.data)
     
@@ -36,7 +43,7 @@ class Filtered_Gyms(APIView):
         #front end usage: axios.get("/gyms/search", {params: { q: "fitness" }})
         
         gyms=Gym.objects.all()
-        gyms = Gym.objects.all()
+       
 
         city = request.query_params.get("city")
         name = request.query_params.get("name")
@@ -68,9 +75,11 @@ class A_Gym(APIView):
         data['updated_at']=timezone.now
         ser_gym = GymSerializer(gym, data=request.data, partial = True)
         #validation check needed here
-        
-        ser_gym.save()
-        return Response(status=HTTP_201_CREATED)
+        if ser_gym.is_valid():
+            ser_gym.save()
+            return Response(status=HTTP_201_CREATED)
+        else:
+            return Response(status=HTTP_400_BAD_REQUEST)
         
     def delete(self, request, id):
         # get a gym from our database
