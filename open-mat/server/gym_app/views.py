@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Gym
+from .distance import address_to_coords, zip_to_coords, haversine
 from django.shortcuts import get_object_or_404
 from .serializers import GymSerializer
 from django.utils import timezone
@@ -19,7 +20,9 @@ class All_Gyms(APIView):
         return Response(gyms.data)
     def post(self, request):
         #do something to grab the latitude, longitude of the gym.
-        new_gym=GymSerializer(data=request.data)
+        data=request.data
+        data['latitude'], data['longitude']=address_to_coords(data)
+        new_gym=GymSerializer(data=data)
         if new_gym.is_valid():
             new_gym.save()
             return Response(new_gym.data, status=HTTP_201_CREATED)
@@ -27,15 +30,47 @@ class All_Gyms(APIView):
             return Response(status=HTTP_400_BAD_REQUEST)
         #should probably add a validation check
         
-
+#request passes params{zip=?, radius=?}
 class Nearby_Gyms(APIView):
     def get(self, request):
-        #must calculate distance from user 
-        #request should pass address
-        data = request.data
-        
-        gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
-        return Response(gyms.data)
+        data = request.query_params  
+        radius = float(data.get("radius", 10))
+        zip_code = data.get("zip")
+
+        if not zip_code:
+            return Response(
+                {"error": "zip is required"},
+                status=400
+            )
+
+        user_lat, user_lon = zip_to_coords(zip_code)
+
+        nearby_gyms = []
+
+        for gym in Gym.objects.exclude(latitude__isnull=True, longitude__isnull=True):
+            dist = haversine(
+                user_lat,
+                user_lon,
+                gym.latitude,
+                gym.longitude
+            )
+
+            if dist <= radius:
+                nearby_gyms.append((dist, gym))
+
+        # sort by distance
+        nearby_gyms.sort(key=lambda x: x[0])
+
+        gyms = [gym for dist, gym in nearby_gyms]
+
+        serializer = GymSerializer(
+            gyms,
+            many=True,
+            context={"distances": dict(nearby_gyms)}
+        )
+
+        return Response(serializer.data)
+
     
 class Filtered_Gyms(APIView):
     def get(self, request):
@@ -71,8 +106,12 @@ class A_Gym(APIView):
     
     def put(self, request, id):
         gym = self.get_a_gym(id)
+        
         data = request.data
+        if data['zip']!=gym['zip']:
+            data['latitude'], data['longitude']=address_to_coords(data)
         data['updated_at']=timezone.now
+        
         ser_gym = GymSerializer(gym, data=request.data, partial = True)
         #validation check needed here
         if ser_gym.is_valid():
