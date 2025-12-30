@@ -27,6 +27,9 @@ class All_Gyms(APIView):
 class Nearby_Gyms(APIView):
     def get(self, request):
         #must calculate distance from user 
+        #request should pass address
+        data = request.data
+        
         gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
         return Response(gyms.data)
     
@@ -36,7 +39,7 @@ class Filtered_Gyms(APIView):
         #front end usage: axios.get("/gyms/search", {params: { q: "fitness" }})
         
         gyms=Gym.objects.all()
-        gyms = Gym.objects.all()
+       
 
         city = request.query_params.get("city")
         name = request.query_params.get("name")
@@ -50,7 +53,7 @@ class Filtered_Gyms(APIView):
         serializer = GymSerializer(gyms, many=True)
         return Response(serializer.data)
        
-class A_Gym():
+class A_Gym(APIView):
     def get_a_gym(self, id):
         gym = None
         if type(id)==int:
