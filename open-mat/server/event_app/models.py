@@ -6,10 +6,10 @@ class Event(models.Model):
     gym=models.ForeignKey(Gym, on_delete=models.CASCADE, related_name='gym_events')
     user=models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_events')
     event_date=models.DateTimeField()
-    gi=models.BooleanField()
-    fee=models.DecimalField(max_digits=5, decimal_places=2)
-    open_class=models.BooleanField()
-    created_at= models.DateTimeField(auto_now_add=True)
+    gi=models.BooleanField(default=False)
+    fee=models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    open_class=models.BooleanField(default=False)
+    created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now=True)
 
     def __str__(self):

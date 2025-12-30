@@ -81,3 +81,4 @@ class TechniqueDetail(APIView):
         technique = get_object_or_404(Technique, pk=pk)
         technique.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+        

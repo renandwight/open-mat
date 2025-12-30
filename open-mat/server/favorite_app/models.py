@@ -1,14 +1,15 @@
 from django.db import models
-from django.conf import settings
+from user_app.models import User
+from gym_app.models import Gym
 
 class Favorite(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+        User,
         on_delete=models.CASCADE,
         related_name='favorites'
     )
     gym = models.ForeignKey(
-        'gym_app.Gym',
+        Gym,
         on_delete=models.CASCADE,
         related_name='favorites'
     )
