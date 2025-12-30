@@ -6,7 +6,7 @@ class GymSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gym
         fields = [
-            'id', 'name', 'street', 'city', 'state', 'zip',
+            'id', 'name', 'street', 'city', 'state', 'created_by','zip',
             'latitude', 'longitude', 'gym_events'
         ]
     

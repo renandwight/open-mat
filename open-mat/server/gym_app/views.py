@@ -22,9 +22,11 @@ class All_Gyms(APIView):
         #do something to grab the latitude, longitude of the gym.
         data=request.data
         data['latitude'], data['longitude']=address_to_coords(data)
+           
         new_gym=GymSerializer(data=data)
+        
         if new_gym.is_valid():
-            new_gym.save()
+            new_gym.save(created_by=request.user)
             return Response(new_gym.data, status=HTTP_201_CREATED)
         else:
             return Response(status=HTTP_400_BAD_REQUEST)

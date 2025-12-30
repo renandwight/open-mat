@@ -1,5 +1,5 @@
 from django.db import models
-from user_app.models import User
+from user_app.models import Client
 from django.utils import timezone
 
 # Create your models here.
@@ -12,7 +12,7 @@ class Gym(models.Model):
     zip = models.CharField(max_length=5,unique=False)
     latitude = models.FloatField()
     longitude = models.FloatField()
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='Gyms',null=True)
+    created_by = models.ForeignKey(Client, on_delete=models.SET_NULL, related_name='Gyms',null=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
     
