@@ -5,7 +5,10 @@ class GymSerializer(serializers.ModelSerializer):
     gym_events = EventReadSerializer(many=True, read_only=True)
     class Meta:
         model = Gym
-        fields = ['id','name','gym_events']
+        fields = [
+            'id', 'name', 'street', 'city', 'state', 'zip',
+            'latitude', 'longitude', 'gym_events'
+        ]
     
     def get_distance(self, obj):
         distances = self.context.get("distances", {})

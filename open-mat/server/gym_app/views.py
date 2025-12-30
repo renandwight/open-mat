@@ -31,6 +31,7 @@ class All_Gyms(APIView):
         #should probably add a validation check
         
 #request passes params{zip=?, radius=?}
+#api request looks like http://127.0.0.1:8000/api/gyms/nearby/?zip=10028&radius=10
 class Nearby_Gyms(APIView):
     def get(self, request):
         data = request.query_params  
@@ -71,7 +72,7 @@ class Nearby_Gyms(APIView):
 
         return Response(serializer.data)
 
-    
+#api request looks like http://127.0.0.1:8000/api/gyms/search/?city=Bronx
 class Filtered_Gyms(APIView):
     def get(self, request):
         #request should probably hold some kind of filter criteria
@@ -108,7 +109,7 @@ class A_Gym(APIView):
         gym = self.get_a_gym(id)
         
         data = request.data
-        if data['zip']!=gym['zip']:
+        if data['zip']!=gym.zip:
             data['latitude'], data['longitude']=address_to_coords(data)
         data['updated_at']=timezone.now
         

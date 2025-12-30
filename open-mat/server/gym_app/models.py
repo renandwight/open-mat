@@ -9,7 +9,7 @@ class Gym(models.Model):
     street = models.CharField(max_length=200, unique=False, blank=False, null=False)
     city = models.CharField(max_length=200, unique=False, blank=False, null=False)
     state = models.TextField(max_length=2, unique=False, blank=False)
-    zip = models.IntegerField(unique=False)
+    zip = models.CharField(max_length=5,unique=False)
     latitude = models.FloatField()
     longitude = models.FloatField()
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='Gyms',null=True)
