@@ -36,5 +36,6 @@ urlpatterns = [
 
 
 
-    path('api/users/favorites/', include('favorite_app.urls'))
+    path('api/users/favorites/', include('favorite_app.urls')),
+    path('api/events/', include('event_app.urls')),
 ]
