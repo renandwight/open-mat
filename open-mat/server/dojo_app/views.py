@@ -1,10 +1,8 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from .models import Technique
 from .serializers import TechniqueSerializer, TechniqueListSerializer
 
@@ -37,7 +35,6 @@ class TechniqueList(APIView):
         # Manual search
         search = request.query_params.get('search')
         if search:
-            from django.db.models import Q
             techniques = techniques.filter(
                 Q(name__icontains=search) | Q(description__icontains=search)
             )
@@ -84,3 +81,4 @@ class TechniqueDetail(APIView):
         technique = get_object_or_404(Technique, pk=pk)
         technique.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+        
