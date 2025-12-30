@@ -7,3 +7,6 @@ class GymSerializer(serializers.ModelSerializer):
         model = Gym
         fields = ['id','name','gym_events']
     
+    def get_distance(self, obj):
+        distances = self.context.get("distances", {})
+        return round(distances.get(obj, 0), 2)
