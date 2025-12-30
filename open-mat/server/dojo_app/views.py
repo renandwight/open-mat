@@ -19,6 +19,7 @@ class TechniqueList(APIView):
         """List all techniques with optional filtering."""
         techniques = Technique.objects.all()
         
+        # Manual filtering
         category = request.query_params.get('category')
         if category:
             techniques = techniques.filter(category=category)
@@ -31,12 +32,14 @@ class TechniqueList(APIView):
         if position:
             techniques = techniques.filter(position=position)
         
+        # Manual search
         search = request.query_params.get('search')
         if search:
             techniques = techniques.filter(
                 Q(name__icontains=search) | Q(description__icontains=search)
             )
         
+        # Use lighter serializer for list view
         serializer = TechniqueListSerializer(techniques, many=True)
         return Response(serializer.data)
     
