@@ -109,7 +109,7 @@ class A_Gym(APIView):
         gym = self.get_a_gym(id)
         
         data = request.data
-        if data['zip']!=gym['zip']:
+        if data['zip']!=gym.zip:
             data['latitude'], data['longitude']=address_to_coords(data)
         data['updated_at']=timezone.now
         
