@@ -1,9 +1,111 @@
 [
     {
-        "id": 1,
+        "id": 6,
         "user": 1,
         "gym_details": {
-            "id": 3,
+            "id": 7,
+            "name": "IJJ Austin",
+            "street": "1600 W Stassney Ln",
+            "city": "Austin",
+            "state": "TX",
+            "created_by": 1,
+            "zip": "78745",
+            "latitude": 30.213617,
+            "longitude": -97.79265110000001,
+            "distance": 0,
+            "gym_events": [
+                {
+                    "id": 10,
+                    "event_date": "2026-01-15T18:30:00Z",
+                    "gi": false,
+                    "fee": "25.00",
+                    "open_class": true
+                },
+                {
+                    "id": 11,
+                    "event_date": "2026-01-16T18:30:00Z",
+                    "gi": true,
+                    "fee": "10.00",
+                    "open_class": false
+                }
+            ],
+            "reviews": []
+        },
+        "created_at": "2026-01-02T21:05:42.554643Z"
+    },
+    {
+        "id": 5,
+        "user": 1,
+        "gym_details": {
+            "id": 6,
+            "name": "Bouldering Project - Westgate",
+            "street": "4477 S Lamar Blvd",
+            "city": "Austin",
+            "state": "TX",
+            "created_by": 1,
+            "zip": "78745",
+            "latitude": 30.2306155,
+            "longitude": -97.79906969999999,
+            "distance": 0,
+            "gym_events": [
+                {
+                    "id": 8,
+                    "event_date": "2026-01-15T18:30:00Z",
+                    "gi": false,
+                    "fee": "25.00",
+                    "open_class": true
+                },
+                {
+                    "id": 9,
+                    "event_date": "2026-01-16T18:30:00Z",
+                    "gi": true,
+                    "fee": "10.00",
+                    "open_class": false
+                }
+            ],
+            "reviews": []
+        },
+        "created_at": "2026-01-02T21:05:38.634783Z"
+    },
+    {
+        "id": 4,
+        "user": 1,
+        "gym_details": {
+            "id": 5,
+            "name": "Bouldering Project - Springdale",
+            "street": "979 Springdale Rd",
+            "city": "Austin",
+            "state": "TX",
+            "created_by": 1,
+            "zip": "78702",
+            "latitude": 30.2646407,
+            "longitude": -97.69581679999999,
+            "distance": 0,
+            "gym_events": [
+                {
+                    "id": 6,
+                    "event_date": "2026-01-15T18:30:00Z",
+                    "gi": false,
+                    "fee": "25.00",
+                    "open_class": true
+                },
+                {
+                    "id": 7,
+                    "event_date": "2026-01-16T18:30:00Z",
+                    "gi": true,
+                    "fee": "10.00",
+                    "open_class": false
+                }
+            ],
+            "reviews": []
+        },
+        "created_at": "2026-01-02T21:05:34.984851Z"
+    },
+    {
+        "id": 2,
+        "user": 1,
+        "gym_details": {
+            "id": 4,
             "name": "10th Planet",
             "street": "123 Main St",
             "city": "Austin",
@@ -12,27 +114,25 @@
             "zip": "78701",
             "latitude": 30.30736749999999,
             "longitude": -97.7598067,
+            "distance": 0,
             "gym_events": [
                 {
-                    "id": 1,
-                    "gym": {
-                        "id": 3,
-                        "name": "10th Planet"
-                    },
-                    "user": {
-                        "id": 1,
-                        "email": "cs@cs.com",
-                        "token": "27afb5aa0580794f13363779d61715c3d622c969"
-                    },
+                    "id": 4,
                     "event_date": "2026-01-15T18:30:00Z",
+                    "gi": false,
+                    "fee": "25.00",
+                    "open_class": true
+                },
+                {
+                    "id": 5,
+                    "event_date": "2026-01-16T18:30:00Z",
                     "gi": true,
                     "fee": "10.00",
-                    "open_class": true,
-                    "created_at": "2026-01-02T16:50:31.071480Z",
-                    "updated_at": "2026-01-02T17:47:04.217616Z"
+                    "open_class": false
                 }
-            ]
+            ],
+            "reviews": []
         },
-        "created_at": "2026-01-02T17:59:54.498626Z"
+        "created_at": "2026-01-02T21:05:21.321389Z"
     }
 ]

@@ -1,5 +1,5 @@
 {
-    "id": 3,
+    "id": 4,
     "name": "10th Planet",
     "street": "123 Main St",
     "city": "Austin",
@@ -8,5 +8,22 @@
     "zip": "78701",
     "latitude": 30.30736749999999,
     "longitude": -97.7598067,
-    "gym_events": []
+    "distance": 0,
+    "gym_events": [
+        {
+            "id": 4,
+            "event_date": "2026-01-15T18:30:00Z",
+            "gi": false,
+            "fee": "25.00",
+            "open_class": true
+        },
+        {
+            "id": 5,
+            "event_date": "2026-01-16T18:30:00Z",
+            "gi": true,
+            "fee": "10.00",
+            "open_class": false
+        }
+    ],
+    "reviews": []
 }

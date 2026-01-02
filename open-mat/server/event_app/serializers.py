@@ -6,30 +6,30 @@ from user_app.serializers import UserSerializer, ClientSerializer
 
 
 
-class GymEventSerializer(ModelSerializer):
-    class Meta:
-        model = Gym
-        fields = ["id","name"]
+# class GymEventSerializer(ModelSerializer):
+#     class Meta:
+#         model = Gym
+#         fields = ["id","name"]
 
 class EventReadSerializer(ModelSerializer):
-    gym=GymEventSerializer(read_only=True)
-    user=ClientSerializer(read_only=True)
+    # gym=GymEventSerializer(read_only=True)
+    # user=ClientSerializer(read_only=True)
 
     class Meta:
         model = Event
         fields = [
             "id",
-            "gym",
-            "user",
+            # "gym",
+            # "user",
             "event_date",
             "gi",
             "fee",
             "open_class",
-            "created_at",
-            "updated_at",
+            # "created_at",
+            # "updated_at",
         ]
 
-        read_only_fields = ["id", "created_at", "updated_at"]
+        read_only_fields = ["id"]   #, "created_at", "updated_at"]
 
 class EventWriteSerializer(ModelSerializer):
     gym_id=PrimaryKeyRelatedField(queryset=Gym.objects.all(), source="gym", write_only=True)
