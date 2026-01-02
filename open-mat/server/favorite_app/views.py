@@ -20,7 +20,10 @@ class FavoriteListCreate(APIView):
         serializer = FavoriteSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user.user_profile)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(
+                {"message": "Favorite added", "favorite": serializer.data},
+                status=status.HTTP_201_CREATED
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -35,7 +38,10 @@ class FavoriteDelete(APIView):
                 user=request.user.user_profile
             )
             favorite.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+            return Response(
+                {"message": "Favorite deleted"},
+                status=status.HTTP_200_OK
+            )
         except Favorite.DoesNotExist:
             return Response(
                 {"error": "Favorite not found"},
