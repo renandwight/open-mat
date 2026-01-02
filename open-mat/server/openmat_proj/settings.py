@@ -23,13 +23,16 @@ load_dotenv("./.env")
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-temporary-dev-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.environ.get("DEBUG"))
+# DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "localhost",
+    "127.0.0.1",
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -49,9 +52,23 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'user_app',
+
+
+
+
+
+
+
+    
+    'dojo_app',
+    'review_app',
+    'event_app',
+    'favorite_app',
+    'gym_app'
 ]
 
-# AUTH_USER_MODEL = 'user_app.'
+# for user_app - arnold
+AUTH_USER_MODEL = 'user_app.Client'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,8 +83,12 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework.authentication.TokenAuthentication',]
-        }
+		'rest_framework.authentication.TokenAuthentication',
+        ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+        ],
+}
 
 ROOT_URLCONF = 'openmat_proj.urls'
 
