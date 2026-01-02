@@ -4,6 +4,7 @@ import AllGyms from "./pages/AllGyms"
 import DetailedGym from "./pages/DetailedGym"
 import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
+import FavoritePage from "./pages/FavoritePage";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -20,10 +21,14 @@ const router = createBrowserRouter([
                 path: 'gyms',
                 element: <AllGyms/>
             },
-            { path: 'gym/:id',
-              element: <DetailedGym/>
+            {
+                path: 'gym/:id',
+                element: <DetailedGym/>
             },
-            
+            {
+                path: "favorites",
+                element: <FavoritePage />,
+            },
         ],
     },
 ]);
