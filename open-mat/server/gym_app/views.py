@@ -8,13 +8,17 @@ from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTT
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 # Create your views here.
 class All_Gyms(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [IsAuthenticated()]
+        return [AllowAny()]
     def get(self, request):
         gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
         return Response(gyms.data)
@@ -65,11 +69,11 @@ class Nearby_Gyms(APIView):
         nearby_gyms.sort(key=lambda x: x[0])
 
         gyms = [gym for dist, gym in nearby_gyms]
-
+        distances = {gym.id: dist for dist, gym in nearby_gyms}
         serializer = GymSerializer(
             gyms,
             many=True,
-            context={"distances": dict(nearby_gyms)}
+            context={"distances": distances}
         )
 
         return Response(serializer.data)
@@ -105,7 +109,7 @@ class A_Gym(APIView):
         return gym
     def get(self, request,id):
         gym=self.get_a_gym(id)
-        return Response(GymSerializer(gym).data,status=HTTP_204_NO_CONTENT)
+        return Response(GymSerializer(gym).data)
     
     def put(self, request, id):
         gym = self.get_a_gym(id)
