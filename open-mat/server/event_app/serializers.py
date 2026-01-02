@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer, ValidationError, Primary
 from .models import Event
 # from gym_app.serializers import GymSerializer
 from gym_app.models import Gym
-from user_app.serializers import UserSerializer
+from user_app.serializers import UserSerializer, ClientSerializer
 
 
 
@@ -13,13 +13,13 @@ class GymEventSerializer(ModelSerializer):
 
 class EventReadSerializer(ModelSerializer):
     gym=GymEventSerializer(read_only=True)
-    user=UserSerializer(read_only=True)
+    user=ClientSerializer(read_only=True)
 
     class Meta:
         model = Event
         fields = [
             "id",
-            "gym"
+            "gym",
             "user",
             "event_date",
             "gi",

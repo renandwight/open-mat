@@ -15,7 +15,7 @@ class EventListCreateView(APIView):
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
-        return UserPermission.permission_classes
+        return [permission() for permission in UserPermission.permission_classes]
 
     def get(self, request):
         events = Event.objects.select_related("gym", "user").order_by("-event_date")
@@ -36,7 +36,7 @@ class EventDetailView(APIView):
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny()]
-        return UserPermission.permission_classes
+        return [permission() for permission in UserPermission.permission_classes]
 
     def get_object(self, id):
         return get_object_or_404(Event.objects.select_related("gym", "user"), id=id)

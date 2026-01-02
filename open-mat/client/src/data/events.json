@@ -1,0 +1,56 @@
+[
+    {
+        "id": 1,
+        "gym": {
+            "id": 3,
+            "name": "10th Planet"
+        },
+        "user": {
+            "id": 1,
+            "email": "cs@cs.com",
+            "token": "27afb5aa0580794f13363779d61715c3d622c969"
+        },
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true,
+        "created_at": "2026-01-02T16:50:31.071480Z",
+        "updated_at": "2026-01-02T16:50:31.071485Z"
+    },
+    {
+        "id": 2,
+        "gym": {
+            "id": 3,
+            "name": "10th Planet"
+        },
+        "user": {
+            "id": 1,
+            "email": "cs@cs.com",
+            "token": "27afb5aa0580794f13363779d61715c3d622c969"
+        },
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true,
+        "created_at": "2026-01-02T16:53:29.211473Z",
+        "updated_at": "2026-01-02T16:53:29.211479Z"
+    },
+    {
+        "id": 3,
+        "gym": {
+            "id": 3,
+            "name": "10th Planet"
+        },
+        "user": {
+            "id": 1,
+            "email": "cs@cs.com",
+            "token": "27afb5aa0580794f13363779d61715c3d622c969"
+        },
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true,
+        "created_at": "2026-01-02T17:36:28.383520Z",
+        "updated_at": "2026-01-02T17:36:28.383526Z"
+    }
+]
