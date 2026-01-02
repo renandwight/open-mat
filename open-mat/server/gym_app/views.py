@@ -13,8 +13,8 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class All_Gyms(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    #authentication_classes = [TokenAuthentication]
+   # permission_classes = [IsAuthenticated]
     def get(self, request):
         gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
         return Response(gyms.data)
@@ -65,11 +65,11 @@ class Nearby_Gyms(APIView):
         nearby_gyms.sort(key=lambda x: x[0])
 
         gyms = [gym for dist, gym in nearby_gyms]
-
+        distances = {gym.id: dist for dist, gym in nearby_gyms}
         serializer = GymSerializer(
             gyms,
             many=True,
-            context={"distances": dict(nearby_gyms)}
+            context={"distances": distances}
         )
 
         return Response(serializer.data)
@@ -105,7 +105,7 @@ class A_Gym(APIView):
         return gym
     def get(self, request,id):
         gym=self.get_a_gym(id)
-        return Response(GymSerializer(gym).data,status=HTTP_204_NO_CONTENT)
+        return Response(GymSerializer(gym).data)
     
     def put(self, request, id):
         gym = self.get_a_gym(id)
