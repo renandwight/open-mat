@@ -28,7 +28,7 @@ export default function DetailedGym(){
         <div className='border-2'>
             <h2>{name}</h2>
             <h3>{street} {city}, {state} {zip}</h3>
-            <h3>Events: {gym_events.map(e => e.name).join(", ")}</h3>
+            <h3>Events: {gym_events.map(e => e.event_date).join(", ")}</h3>
             <small>Gym ID: {id}</small>
         </div>
     )

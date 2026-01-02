@@ -8,13 +8,17 @@ from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTT
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 
 # Create your views here.
 class All_Gyms(APIView):
-    #authentication_classes = [TokenAuthentication]
-   # permission_classes = [IsAuthenticated]
+    authentication_classes = [TokenAuthentication]
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [IsAuthenticated()]
+        return [AllowAny()]
     def get(self, request):
         gyms=GymSerializer(Gym.objects.order_by('name'), many=True)
         return Response(gyms.data)
