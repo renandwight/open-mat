@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "user": 1,
+        "gym_details": {
+            "id": 3,
+            "name": "10th Planet",
+            "street": "123 Main St",
+            "city": "Austin",
+            "state": "TX",
+            "created_by": 1,
+            "zip": "78701",
+            "latitude": 30.30736749999999,
+            "longitude": -97.7598067,
+            "gym_events": [
+                {
+                    "id": 1,
+                    "gym": {
+                        "id": 3,
+                        "name": "10th Planet"
+                    },
+                    "user": {
+                        "id": 1,
+                        "email": "cs@cs.com",
+                        "token": "27afb5aa0580794f13363779d61715c3d622c969"
+                    },
+                    "event_date": "2026-01-15T18:30:00Z",
+                    "gi": true,
+                    "fee": "10.00",
+                    "open_class": true,
+                    "created_at": "2026-01-02T16:50:31.071480Z",
+                    "updated_at": "2026-01-02T17:47:04.217616Z"
+                }
+            ]
+        },
+        "created_at": "2026-01-02T17:59:54.498626Z"
+    }
+]

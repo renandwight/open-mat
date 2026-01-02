@@ -1,0 +1,12 @@
+{
+    "id": 3,
+    "name": "10th Planet",
+    "street": "123 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "created_by": 1,
+    "zip": "78701",
+    "latitude": 30.30736749999999,
+    "longitude": -97.7598067,
+    "gym_events": []
+}
