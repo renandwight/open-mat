@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from './components/NavBar';
 
 function App() {
-  const [user, setUser] = useState({ name: 'Test User' }); 
+  const [user, setUser] = useState(null); 
   const navigate = useNavigate();
 
   useEffect(() => {
