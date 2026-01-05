@@ -76,8 +76,25 @@ class Technique(models.Model):
         return f"{self.name} ({self.get_difficulty_display()})"
     
     def get_youtube_embed_url(self):
-        """Convert YouTube watch URL to embed URL for iframe."""
-        if 'watch?v=' in self.youtube_url:
-            video_id = self.youtube_url.split('watch?v=')[1].split('&')[0]
-            return f"https://www.youtube.com/embed/{video_id}"
-        return self.youtube_url
+        """Convert YouTube URL to embed format"""
+        if not self.youtube_url:
+            return None
+        
+        url = self.youtube_url
+        
+        # Handle youtube.com/shorts/VIDEO_ID
+        if 'youtube.com/shorts/' in url:
+            video_id = url.split('shorts/')[1].split('?')[0]
+            return f'https://www.youtube.com/embed/{video_id}'
+        
+        # Handle youtube.com/watch?v=VIDEO_ID
+        elif 'watch?v=' in url:
+            video_id = url.split('watch?v=')[1].split('&')[0]
+            return f'https://www.youtube.com/embed/{video_id}'
+        
+        # Handle youtu.be/VIDEO_ID
+        elif 'youtu.be/' in url:
+            video_id = url.split('youtu.be/')[1].split('?')[0]
+            return f'https://www.youtube.com/embed/{video_id}'
+        
+        return url
