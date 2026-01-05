@@ -6,7 +6,7 @@ from .validators import validate_rating
 
 # Create your models here.
 class Review(models.Model):
-    client = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='reviews'
