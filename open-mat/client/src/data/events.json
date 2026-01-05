@@ -1,0 +1,58 @@
+[
+    {
+        "id": 5,
+        "event_date": "2026-01-16T18:30:00Z",
+        "gi": true,
+        "fee": "10.00",
+        "open_class": false
+    },
+    {
+        "id": 9,
+        "event_date": "2026-01-16T18:30:00Z",
+        "gi": true,
+        "fee": "10.00",
+        "open_class": false
+    },
+    {
+        "id": 7,
+        "event_date": "2026-01-16T18:30:00Z",
+        "gi": true,
+        "fee": "10.00",
+        "open_class": false
+    },
+    {
+        "id": 11,
+        "event_date": "2026-01-16T18:30:00Z",
+        "gi": true,
+        "fee": "10.00",
+        "open_class": false
+    },
+    {
+        "id": 8,
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true
+    },
+    {
+        "id": 6,
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true
+    },
+    {
+        "id": 4,
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true
+    },
+    {
+        "id": 10,
+        "event_date": "2026-01-15T18:30:00Z",
+        "gi": false,
+        "fee": "25.00",
+        "open_class": true
+    }
+]

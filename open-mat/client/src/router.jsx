@@ -1,11 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-
+import AllGyms from "./pages/AllGyms"
+import DetailedGym from "./pages/DetailedGym"
+import ErrorPage from './pages/ErrorPage'
+import HomePage from './pages/HomePage'
+import FavoritePage from "./pages/FavoritePage";
+import AllEvents from "./pages/AllEvents";
 const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        loader: ,
+        
         errorElement: <ErrorPage />,
         
         children: [
@@ -14,8 +19,20 @@ const router = createBrowserRouter([
                 element: <HomePage />,
             },
             {
-                path: "*",
-                element: <NotFoundPage />,
+                path: 'gyms',
+                element: <AllGyms/>
+            },
+            {
+                path: 'gym/:id',
+                element: <DetailedGym/>
+            },
+            {
+                path: "favorites",
+                element: <FavoritePage />,
+            },
+            {
+                path: "events",
+                element: <AllEvents />,
             },
         ],
     },
