@@ -1,10 +1,10 @@
 from rest_framework.serializers import ModelSerializer
-from user_app.serializers import UserSerializer
+from user_app.serializers import ClientSerializer
 from .models import Review
 
 # serializer to GET
 class ReviewReadSerializer(ModelSerializer):
-    user = UserSerializer(read_only=True)
+    client = ClientSerializer(read_only=True)
 
     class Meta:
         model = Review

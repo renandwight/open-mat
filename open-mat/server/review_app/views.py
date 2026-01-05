@@ -30,7 +30,7 @@ class CreateReview(UserPermission):
     def post(self, request):
         serializer = ReviewWriteSerializer(data=request.data)
         if serializer.is_valid():
-            review = serializer.save(user=request.user)
+            review = serializer.save(client=request.user)
             return Response(ReviewReadSerializer(review).data, status=s.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=s.HTTP_400_BAD_REQUEST)
