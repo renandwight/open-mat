@@ -6,6 +6,7 @@ import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
 import FavoritePage from "./pages/FavoritePage";
 import AllEvents from "./pages/AllEvents";
+import DojoPage from "./pages/DojoPage";
 import EventsManager from "./pages/EventsManagerPage";
 
 const router = createBrowserRouter([
@@ -37,6 +38,9 @@ const router = createBrowserRouter([
                 element: <AllEvents />,
             },
             {
+                path: "dojo",
+                element: <DojoPage />
+            }
                 path: "manageevent",
                 element: <EventsManager />,
             },
