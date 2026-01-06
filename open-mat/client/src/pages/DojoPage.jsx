@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import beltsImage from "../assets/Belts.png";
 
 function DojoPage() {
   const [techniques, setTechniques] = useState([]);
@@ -77,7 +78,28 @@ function DojoPage() {
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-8">⬜🟦🟪THE DOJO🟫⬛🟥</h1>
+      {/* Header with centered DOJO and belts */}
+      <div className="text-center mb-5">
+        <h1
+          className="display-1 fw-bold mb-3"
+          style={{
+            letterSpacing: "0.3em",
+            background: "linear-gradient(to right, #DC143C, #000000)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+          }}
+        >
+          DOJO
+        </h1>
+        <img
+          src={beltsImage}
+          alt="BJJ Belt Progression"
+          className="img-fluid"
+          style={{ maxWidth: "600px" }}
+        />
+        <p className="text-center mb-6">BJJ Technique Library</p>
+      </div>
 
       {/* Filters */}
       <div className="card mb-4">
