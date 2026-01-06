@@ -1,6 +1,7 @@
-import { formToJSON } from 'axios';
 import {api} from '../api/api'
 import { useEffect, useState} from 'react';
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import Eventcard from '../components/Eventcard';
 
 export default function EventsManager(){
 
@@ -24,8 +25,8 @@ export default function EventsManager(){
         (error) => Promise.reject(error)
     );
 
-    const [events, setEvents] = useState([]) //need use loaderdata (relocate to app.jsx?)
-
+    const [events, setEvents] = useState([]) //need use loaderdata (relocate to app.jsx)
+    const [gyms, setGyms] = useState([]) //same as above; will need to relocate to app.jsx)
     // set state for form data
     const [newEvent, setNewEvent] = useState({
         gym_id: "", 
@@ -54,19 +55,32 @@ export default function EventsManager(){
                 } 
             } catch (error) {
                 console.log(error)
-                alert(data)
             }
         }
         getEvents();
     }, [])
     
+    // need gyms since user can create multiple gyms then events off those gyms
+        useEffect(() => {
+        const getGyms = async () => {
+            try {
+                const {data, status} = await api.get('gyms/')
+                if (status === 200) {
+                    setGyms(data)
+                } 
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getGyms();
+    }, [])
+
     // create
     const createEvent = async (eventObj) => {
         let {data, status} = await api.post("events/", eventObj);
         if (status === 201) {
             return data;
         } else {
-            alert(data);
             return null
         }
     };
@@ -131,19 +145,212 @@ export default function EventsManager(){
         })
     }
 
-    const handleClick = () => {
-        let updatedEvent = {
-            gym_id: '', // added '' temporarily 
-            event_date: '', // added '' temporarily 
-            gi: '', // added '' temporarily 
-            fee: '', // added '' temporarily 
+    const handleEdit = async () => {
+        const eventData = {
+            event_date: new Date(editDetails.event_date).toISOString(),
+            gi: Boolean(editDetails.gi),
+            fee: editDetails.fee === "" ? null : String(editDetails.fee),
+            open_class: Boolean(editDetails.open_class),
+        };
+
+        try {
+            const updated = await editEvent(editId, eventData);
+            setEvents((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+            setEditId(null);
+        } catch (error) {
+            console.log(error);
         }
     };
 
+    const onFormChange = (setter) => (e) => {
+        const { name, type, checked, value } = e.target;
+        setter((prev) => ({...prev,[name]: type === "checkbox" ? checked : value,}
+        ));
+    };
 
     return (
-        <div className='border-2'>
-            <h1>Events Manager</h1>
-        </div>
-    )
-}
+        <Container className="py-4">
+            <h1 className="mb-4 text-center">Events Manager</h1>
+
+            {/* CREATE FORM */}
+            <Card className="mx-auto mb-4" style={{ maxWidth: 720 }}>
+            <Card.Body>
+                <Card.Title>Create Event</Card.Title>
+
+                <Form onSubmit={handleCreateEvent}>
+                <Row className="g-3">
+                    <Col xs={12} md={4}>
+                        <Form.Group>
+                        <Form.Label>Select Gym</Form.Label>
+                            <Form.Select
+                                name="gym_id"
+                                value={newEvent.gym_id}
+                                onChange={onFormChange(setNewEvent)}
+                                required
+                                disabled={gyms.length === 0}
+                            >
+                                <option value="">
+                                {gyms.length === 0 ? "No gyms available" : "Choose a gym..."}
+                                </option>
+
+                                {gyms.map((g) => (
+                                <option key={g.id} value={g.id}>
+                                    {g.name ? `${g.name}`: "No Gym Created"}
+                                </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+                    </Col>
+
+                    <Col xs={12} md={8}>
+                    <Form.Group>
+                        <Form.Label>Date / Time</Form.Label>
+                        <Form.Control
+                        name="event_date"
+                        type="datetime-local"
+                        value={newEvent.event_date}
+                        onChange={onFormChange(setNewEvent)}
+                        required
+                        />
+                    </Form.Group>
+                    </Col>
+
+                    <Col xs={12} md={4}>
+                    <Form.Group>
+                        <Form.Label>Fee</Form.Label>
+                        <Form.Control
+                        name="fee"
+                        type="text"
+                        placeholder="10.00"
+                        value={newEvent.fee}
+                        onChange={onFormChange(setNewEvent)}
+                        />
+                    </Form.Group>
+                    </Col>
+
+                    <Col xs={12} md={4} className="d-flex align-items-end">
+                    <Form.Check
+                        name="gi"
+                        type="checkbox"
+                        label="GI (🥋)"
+                        checked={newEvent.gi}
+                        onChange={onFormChange(setNewEvent)}
+                    />
+                    </Col>
+
+                    <Col xs={12} md={4} className="d-flex align-items-end">
+                    <Form.Check
+                        name="open_class"
+                        type="checkbox"
+                        label="Open Class"
+                        checked={newEvent.open_class}
+                        onChange={onFormChange(setNewEvent)}
+                    />
+                    </Col>
+
+                    <Col xs={12}>
+                    <Button type="submit">Create</Button>
+                    </Col>
+                </Row>
+                </Form>
+            </Card.Body>
+            </Card>
+
+            {/* EDIT PANEL (shows only when editing) */}
+            {editId !== null && (
+            <Card className="mx-auto mb-4" style={{ maxWidth: 720 }}>
+                <Card.Body>
+                <Card.Title>Edit Event (ID: {editId})</Card.Title>
+                <Card.Subtitle className="mb-3 text-muted">
+                    Gym cannot be changed after creation.
+                </Card.Subtitle>
+
+                <Form
+                    onSubmit={(e) => {
+                    e.preventDefault();
+                    handleEdit();
+                    }}
+                >
+                    <Row className="g-3">
+                    <Col xs={12} md={8}>
+                        <Form.Group>
+                        <Form.Label>Date / Time</Form.Label>
+                        <Form.Control
+                            name="event_date"
+                            type="datetime-local"
+                            value={editDetails.event_date}
+                            onChange={onFormChange(setEdittDetails)}
+                            required
+                        />
+                        </Form.Group>
+                    </Col>
+
+                    <Col xs={12} md={4}>
+                        <Form.Group>
+                        <Form.Label>Fee</Form.Label>
+                        <Form.Control
+                            name="fee"
+                            type="text"
+                            value={editDetails.fee}
+                            onChange={onFormChange(setEdittDetails)}
+                        />
+                        </Form.Group>
+                    </Col>
+
+                    <Col xs={12} md={4} className="d-flex align-items-end">
+                        <Form.Check
+                        name="gi"
+                        type="checkbox"
+                        label="GI (🥋)"
+                        checked={editDetails.gi}
+                        onChange={onFormChange(setEdittDetails)}
+                        />
+                    </Col>
+
+                    <Col xs={12} md={4} className="d-flex align-items-end">
+                        <Form.Check
+                        name="open_class"
+                        type="checkbox"
+                        label="Open Class"
+                        checked={editDetails.open_class}
+                        onChange={onFormChange(setEdittDetails)}
+                        />
+                    </Col>
+
+                    <Col xs={12} className="d-flex gap-2">
+                        <Button type="submit">Save</Button>
+                        <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={() => setEditId(null)}
+                        >
+                        Cancel
+                        </Button>
+                    </Col>
+                    </Row>
+                </Form>
+                </Card.Body>
+            </Card>
+            )}
+
+            {/* EVENTS GRID (3 columns on lg) */}
+            <Row className="justify-content-center g-4">
+            {events.map((ev) => (
+                <Col
+                key={ev.id}
+                xs={12}
+                md={6}
+                lg={4}
+                className="d-flex justify-content-center"
+                >
+                <Eventcard
+                    eventsData={ev}
+                    onEdit={updateEvent}
+                    onDelete={dropEvent}
+                />
+                </Col>
+            ))}
+            </Row>
+        </Container>
+    );
+};
