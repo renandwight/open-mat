@@ -74,14 +74,16 @@ export default function EventsManager(){
     // handle create
     const handleCreateEvent = async(e) => {
         e.preventDefault();
-        let createdEvent = await createEvent({
-            gym_id: '', // added '' temporarily 
-            event_date: '', //???
-            gi: Boolean(newEvent.gi),
-            fee: String(newEvent.fee),
-            open_class: Boolean(newEvent.open_class)
-        });
-        if (createdEvent) {
+
+        try {
+            const createdEvent = await createEvent({
+                gym_id: Number(newEvent.gym_id),
+                event_date: new Date(newEvent.event_date).toISOString(),     //need to create date time format helper
+                gi: Boolean(newEvent.gi),
+                fee: String(newEvent.fee),
+                open_class: Boolean(newEvent.open_class)
+            });
+            
             setEvents((prev) => [createdEvent, ...prev]);
 
             // clear / reset form data
@@ -95,7 +97,7 @@ export default function EventsManager(){
         } catch (error) {
             console.log(error)
         }
-    }
+    };
 
     // delete
     const removeEvent = async (id) => {
