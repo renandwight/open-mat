@@ -5,15 +5,6 @@ import Eventcard from '../components/Eventcard';
 
 export default function EventsManager(){
 
-// {
-//     "id": 5,
-//     "gym_id": 4,
-//     "event_date": "2026-01-16T18:30:00Z",
-//     "gi": true,
-//     "fee": "10.00",
-//     "open_class": false
-// }
-
     // retain token across requests
     api.interceptors.request.use((config) => {
         const token = localStorage.getItem("token");
@@ -27,6 +18,7 @@ export default function EventsManager(){
 
     const [events, setEvents] = useState([]) //need use loaderdata (relocate to app.jsx)
     const [gyms, setGyms] = useState([]) //same as above; will need to relocate to app.jsx)
+
     // set state for form data
     const [newEvent, setNewEvent] = useState({
         gym_id: "", 
@@ -168,11 +160,14 @@ export default function EventsManager(){
         ));
     };
 
+    if (!gyms) return <div>Loading...</div>;
+
+    if (gyms.length === 0) return <div>Please Create a Gym First.</div>;
+    
     return (
         <Container className="py-4">
             <h1 className="mb-4 text-center">Events Manager</h1>
 
-            {/* CREATE FORM */}
             <Card className="mx-auto mb-4" style={{ maxWidth: 720 }}>
             <Card.Body>
                 <Card.Title>Create Event</Card.Title>
@@ -256,7 +251,6 @@ export default function EventsManager(){
             </Card.Body>
             </Card>
 
-            {/* EDIT PANEL (shows only when editing) */}
             {editId !== null && (
             <Card className="mx-auto mb-4" style={{ maxWidth: 720 }}>
                 <Card.Body>
@@ -333,7 +327,6 @@ export default function EventsManager(){
             </Card>
             )}
 
-            {/* EVENTS GRID (3 columns on lg) */}
             <Row className="justify-content-center g-4">
             {events.map((ev) => (
                 <Col

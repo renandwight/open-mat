@@ -5,11 +5,15 @@ function Eventcard({eventsData, onEdit, onDelete}) {
     const { id, gym_id, event_date, gi, fee, open_class} = eventsData
     // console.log(eventsData)
     
-    // need date formatter
-    const formatDate = (iso) => {
-        const d = new Date(iso);
-        return isNaN(d.getTime()) ? iso : d.toLocaleString();
-    };
+    // need date formatter?
+    // const formatDate = (iso) => {
+    //     const d = new Date(iso);
+    //     return isNaN(d.getTime()) ? iso : d.toLocaleString();
+    // };
+
+    if (!eventsData) return <div>Loading...</div>;
+
+    if (eventsData.length === 0) return <div>Please create an Event</div>;
 
     return (
         <Container className="d-flex justify-content-center">
