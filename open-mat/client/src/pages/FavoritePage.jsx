@@ -31,9 +31,9 @@ export default function FavoritePage() {
                     Authorization: `Token ${token}`
                 }
             });
-            setFavorites(favorites.filter(fav => fav.gym.id !== gymId));
+            setFavorites(favorites.filter(fav => fav.gym_details.id !== gymId));
         } catch (error) {
-            console.log(error);
+            console.log("Delete error:", error.response?.data || error.message);
         }
     };
 
@@ -45,7 +45,7 @@ export default function FavoritePage() {
         <div>
             <h1>Favorite Gyms</h1>
             {favorites.map((favorite) => {
-                const { id, name, street, city, state, zip } = favorite.gym;
+                const { id, name, street, city, state, zip } = favorite.gym_details;
                 return (
                     <div key={favorite.id} className='border-2'>
                         <h2>{name}</h2>
