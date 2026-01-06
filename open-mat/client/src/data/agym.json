@@ -12,6 +12,7 @@
     "gym_events": [
         {
             "id": 4,
+            "gym_id": 4,
             "event_date": "2026-01-15T18:30:00Z",
             "gi": false,
             "fee": "25.00",
@@ -19,6 +20,7 @@
         },
         {
             "id": 5,
+            "gym_id": 4,
             "event_date": "2026-01-16T18:30:00Z",
             "gi": true,
             "fee": "10.00",

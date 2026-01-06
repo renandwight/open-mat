@@ -13,6 +13,7 @@
         "gym_events": [
             {
                 "id": 4,
+                "gym_id": 4,
                 "event_date": "2026-01-15T18:30:00Z",
                 "gi": false,
                 "fee": "25.00",
@@ -20,6 +21,7 @@
             },
             {
                 "id": 5,
+                "gym_id": 4,
                 "event_date": "2026-01-16T18:30:00Z",
                 "gi": true,
                 "fee": "10.00",
@@ -42,6 +44,7 @@
         "gym_events": [
             {
                 "id": 6,
+                "gym_id": 5,
                 "event_date": "2026-01-15T18:30:00Z",
                 "gi": false,
                 "fee": "25.00",
@@ -49,6 +52,7 @@
             },
             {
                 "id": 7,
+                "gym_id": 5,
                 "event_date": "2026-01-16T18:30:00Z",
                 "gi": true,
                 "fee": "10.00",
@@ -71,6 +75,7 @@
         "gym_events": [
             {
                 "id": 8,
+                "gym_id": 6,
                 "event_date": "2026-01-15T18:30:00Z",
                 "gi": false,
                 "fee": "25.00",
@@ -78,6 +83,7 @@
             },
             {
                 "id": 9,
+                "gym_id": 6,
                 "event_date": "2026-01-16T18:30:00Z",
                 "gi": true,
                 "fee": "10.00",
@@ -100,6 +106,7 @@
         "gym_events": [
             {
                 "id": 10,
+                "gym_id": 7,
                 "event_date": "2026-01-15T18:30:00Z",
                 "gi": false,
                 "fee": "25.00",
@@ -107,6 +114,7 @@
             },
             {
                 "id": 11,
+                "gym_id": 7,
                 "event_date": "2026-01-16T18:30:00Z",
                 "gi": true,
                 "fee": "10.00",

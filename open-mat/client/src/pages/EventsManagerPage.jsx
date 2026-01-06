@@ -3,17 +3,14 @@ import {api} from '../api/api'
 import { useEffect, useState} from 'react';
 
 export default function EventsManager(){
-//------------------------------------CURRENT ISSUE/PROBLEM----------------------------------------
-//-----GYM ID IS REQUIRED ON REQUESTS; ADDITIONALLY, THERE SHOULD BE 1-TO-1 RELATIONSHIP-----------
-//-----BETWEEN USER AND GYM; CURRENTLY 1 TO MANY; NEED INSIGHT/GUIDANCE/INPUT----------------------
-//-----NEED TO REVIEW MODELS AGAIN-----------------------------------------------------------------
 
-//     {
-//   "gym_id": 7,
-//   "event_date": "2026-01-16T18:30:00Z",
-//   "gi": true,
-//   "fee": "10",
-//   "open_class": false
+// {
+//     "id": 5,
+//     "gym_id": 4,
+//     "event_date": "2026-01-16T18:30:00Z",
+//     "gi": true,
+//     "fee": "10.00",
+//     "open_class": false
 // }
 
     // retain token across requests
@@ -29,10 +26,10 @@ export default function EventsManager(){
 
     const [events, setEvents] = useState([]) //need use loaderdata (relocate to app.jsx?)
 
-    // creating events
+    // set state for form data
     const [newEvent, setNewEvent] = useState({
         gym_id: "", 
-        event_date: "", //need to create date time format helper
+        event_date: "",
         gi: false,
         fee: "",
         open_class: false
@@ -41,7 +38,6 @@ export default function EventsManager(){
     // editing events
     const [editId, setEditId] = useState(null);
     const [editDetails, setEdittDetails] = useState({
-        gym_id: "",
         event_date: "",
         gi: false,
         fee: "",
@@ -78,15 +74,28 @@ export default function EventsManager(){
     // handle create
     const handleCreateEvent = async(e) => {
         e.preventDefault();
-        let createdEvent = await createEvent({
-            gym_id: ,
-            event_date: , //???
-            gi: Boolean(newEvent.gi),
-            fee: String(newEvent.fee),
-            open_class: Boolean(newEvent.open_class)
-        });
-        if (createdEvent) {
+
+        try {
+            const createdEvent = await createEvent({
+                gym_id: Number(newEvent.gym_id),
+                event_date: new Date(newEvent.event_date).toISOString(),     //need to create date time format helper
+                gi: Boolean(newEvent.gi),
+                fee: String(newEvent.fee),
+                open_class: Boolean(newEvent.open_class)
+            });
+            
             setEvents((prev) => [createdEvent, ...prev]);
+
+            // clear / reset form data
+            setNewEvent({
+                gym_id: "", 
+                event_date: "",
+                gi: false,
+                fee: "",
+                open_class: false
+            })
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -102,29 +111,44 @@ export default function EventsManager(){
         }
     };
 
-    const editEvent = async (event) => {
-        const {data, status} = await api.put(`events/${event.id}/`, event);
+
+    // edit / patch events
+    const editEvent = async (id, eventObj) => {
+        const {data, status} = await api.patch(`events/${id}/`, eventObj);
         if (status === 200) {
             return data;
         }
+        throw new Error(status)
     };
 
-
-    //-------------------------------------INWORK-------------------------------------------------
-    const updateEvent = async(updatedEvent) => {
-        updatedEvent = await editEvent(updatedEvent)
-        setEvents(events.map((event) => (event.id === updatedEvent.id ? updatedEvent: event)))
+    const updateEvent = (updatedEvent) => {
+        setEditId(updatedEvent.id);
+        setEdittDetails({
+            event_date: updatedEvent.event_date ? updatedEvent.event_date.slice(0,16) : "",
+            gi: Boolean(updatedEvent.gi),
+            fee: updatedEvent.fee ?? "",
+            open_class: Boolean(updatedEvent.open_class)
+        })
     }
 
-    const handleClick = () => {
-        let updatedEvent = {
-            gym_id: ,
-            event_date: ,
-            gi: ,
-            fee: ,
+    const handleEdit = async (e) => {
+        e.preventDefault()
+        
+        const eventData = {
+            event_date: new Date(editDetails.event_date).toISOString(),
+            gi: Boolean(editDetails.gi),
+            fee: editDetails.fee === "" ? null : String(editDetails.fee),
+            open_class: Boolean(editDetails.open_class),
+        };
+
+        try {
+            const updated = await editEvent(editId, eventData);
+            setEvents((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
+            setEditId(null);
+        } catch (error) {
+            console.log(error);
         }
-        updateEvent(updatedEvent)
-    }
+    };
 
 
     return (

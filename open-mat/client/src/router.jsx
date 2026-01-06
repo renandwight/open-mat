@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import AllGyms from "./pages/AllGyms"
-import DetailedGym from "./pages/DetailedGym"
-import ErrorPage from './pages/ErrorPage'
-import HomePage from './pages/HomePage'
+import AllGyms from "./pages/AllGyms";
+import DetailedGym from "./pages/DetailedGym";
+import ErrorPage from './pages/ErrorPage';
+import HomePage from './pages/HomePage';
 import FavoritePage from "./pages/FavoritePage";
 import AllEvents from "./pages/AllEvents";
 import DojoPage from "./pages/DojoPage";
@@ -39,8 +39,9 @@ const router = createBrowserRouter([
             },
             {
                 path: "dojo",
-                element: <DojoPage />
-            }
+                element: <DojoPage />,
+            },
+            {
                 path: "manageevent",
                 element: <EventsManager />,
             },

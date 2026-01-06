@@ -39,7 +39,9 @@ class EventDetailView(APIView):
         return [permission() for permission in UserPermission.permission_classes]
 
     def get_object(self, id):
-        return get_object_or_404(Event.objects.select_related("gym", "user"), id=id)
+        return get_object_or_404(
+            Event.objects.select_related("gym", "user"), 
+                id=id, user=self.request.user)
 
     def get(self, request, id):
         event = self.get_object(id)
@@ -47,7 +49,14 @@ class EventDetailView(APIView):
 
     def put(self, request, id):
         event = self.get_object(id)
-        serializer = EventWriteSerializer(event, data=request.data)
+        serializer = EventWriteSerializer(event, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        updated = serializer.save(user=request.user)
+        return Response(EventReadSerializer(updated).data)
+    
+    def patch(self, request, id):
+        event = self.get_object(id)
+        serializer = EventWriteSerializer(event, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         updated = serializer.save(user=request.user)
         return Response(EventReadSerializer(updated).data)
@@ -56,4 +65,3 @@ class EventDetailView(APIView):
         event = self.get_object(id)
         event.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
