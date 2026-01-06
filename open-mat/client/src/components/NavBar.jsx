@@ -55,7 +55,7 @@ function NavBar({ user, onLogout }) {
             {user ? (
               <Button variant="outline-danger" onClick={handleLogout}>Logout</Button>
             ) : (
-              <Button as={Link} to="/login" variant="outline-primary" onClick={handleClose}>
+              <Button as={Link} to="/loginsignup" variant="outline-primary" onClick={handleClose}>
                 Login / Register
               </Button>
             )}
