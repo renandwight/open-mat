@@ -1,31 +1,23 @@
 import { api } from '../api/api';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default function FavoritePage() {
     const [favorites, setFavorites] = useState(null);
-    const navigate = useNavigate();
-    const token = localStorage.getItem('token');
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!token) {
-            navigate('/login');
-            return;
-        }
-
         const getFavorites = async () => {
             try {
                 const response = await api.get('users/favorites/');
                 setFavorites(response.data);
             } catch (error) {
                 console.log(error);
-                if (error.response?.status === 401) {
-                    navigate('/login');
-                }
+            } finally {
+                setLoading(false);
             }
         };
         getFavorites();
-    }, [token, navigate]);
+    }, []);
 
     const removeFavorite = async (gymId) => {
         try {
@@ -36,11 +28,9 @@ export default function FavoritePage() {
         }
     };
 
-    if (!token) return <div>Please log in to view favorites.</div>;
+    if (loading) return <div>Loading...</div>;
 
-    if (!favorites) return <div>Loading...</div>;
-
-    if (favorites.length === 0) return <div>No favorites yet.</div>;
+    if (!favorites || favorites.length === 0) return <div>No favorites yet.</div>;
 
     return (
         <div>

@@ -1,24 +1,46 @@
-import { Card, Row, Col, Container, ListGroup } from 'react-bootstrap';
+import { Card, Container, ListGroup, Button } from 'react-bootstrap';
 
-function Eventcard({eventsData}) {
+function Eventcard({eventsData, onEdit, onDelete}) {
     // {id: 5, event_date: '2026-01-16T18:30:00Z', gi: true, fee: '10.00', open_class: false}
     const { id, gym_id, event_date, gi, fee, open_class} = eventsData
     // console.log(eventsData)
     
+    // need date formatter
+    const formatDate = (iso) => {
+        const d = new Date(iso);
+        return isNaN(d.getTime()) ? iso : d.toLocaleString();
+    };
+
     return (
         <Container className="d-flex justify-content-center">
-            <Row className="justify-content-center g-4">
-                <Col xs={12} md={6} lg={4}>
-                    <Card style={{width: '18rem'}}>
-                        <ListGroup variant="flush">
-                            <ListGroup.Item>Event Date: {event_date}</ListGroup.Item>
-                            <ListGroup.Item>Gi: {gi===true ? "🥋" : "🚫"}</ListGroup.Item>
-                            <ListGroup.Item>Fee: {fee === 0.00 ? "None" : fee}</ListGroup.Item>
-                            <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "No"}</ListGroup.Item>
-                        </ListGroup>
-                    </Card>
-                </Col>
-            </Row>
+            <Card style={{width: '18rem'}}>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>Event Date: {event_date}</ListGroup.Item>
+                    <ListGroup.Item>Gi: {gi===true ? "🥋" : "🚫"}</ListGroup.Item>
+                    <ListGroup.Item>Fee: {fee === 0.00 ? "None" : fee}</ListGroup.Item>
+                    <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "No"}</ListGroup.Item>
+                </ListGroup>
+
+                {/*need buttons for editing and deleting*/}
+
+                <Card.Body className="d-flex justify-content-between">
+                    <Button
+                    size="sm"
+                    variant="outline-primary"
+                    onClick={() => onEdit(eventsData)}
+                    >
+                    Edit
+                    </Button>
+
+                    <Button
+                    size="sm"
+                    variant="outline-danger"
+                    onClick={() => onDelete(eventsData)}
+                    >
+                    Delete
+                    </Button>
+                </Card.Body>
+            </Card>
         </Container>
     );
 }
