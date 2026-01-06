@@ -35,7 +35,7 @@ export default function DetailedGym(){
             {gym_events.map((k,v)=>(
                 <Eventcard key={k.id} eventsData={k} />
             ))}
-            <h3>Reviews:</h3>
+            <h3>Reviews</h3>
             {reviews.length>0 ? reviews.map((k,v)=>(
                 <ReviewCard key={k.id} reviewData={k} />
             )) : <h3>This gym has no reviews? <Link>Add one?</Link></h3>}
