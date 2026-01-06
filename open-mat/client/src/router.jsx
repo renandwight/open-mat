@@ -6,6 +6,8 @@ import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
 import FavoritePage from "./pages/FavoritePage";
 import AllEvents from "./pages/AllEvents";
+import LoginSignup from "./pages/LoginSignup";
+import ProfilePage from "./components/ProfilePage";
 const router = createBrowserRouter([
     {
         path: "/",
@@ -34,6 +36,16 @@ const router = createBrowserRouter([
                 path: "events",
                 element: <AllEvents />,
             },
+            {
+                path: "/loginsignup",
+                element: <LoginSignup/>,
+            },
+            {
+                path: "/profile",
+                element: <ProfilePage/>,
+            },
+            
+
         ],
     },
 ]);
