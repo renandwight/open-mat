@@ -1,5 +1,6 @@
 import { api } from '../api/api';
 import { useEffect, useState } from 'react';
+import FavoriteCard from '../components/FavoriteCard';
 
 export default function FavoritePage() {
     const [favorites, setFavorites] = useState(null);
@@ -43,19 +44,14 @@ export default function FavoritePage() {
 
     return (
         <div>
-            <h1>Favorite Gyms</h1>
-            {favorites.map((favorite) => {
-                const { id, name, street, city, state, zip } = favorite.gym_details;
-                return (
-                    <div key={favorite.id} className='border-2'>
-                        <h2>{name}</h2>
-                        <h3>{street} {city}, {state} {zip}</h3>
-                        <button onClick={() => removeFavorite(id)}>
-                            Remove Favorite
-                        </button>
-                    </div>
-                );
-            })}
+            <h2 className="text-center mb-4">Favorite Gyms</h2>
+            {favorites.map((favorite) => (
+                <FavoriteCard 
+                    key={favorite.id} 
+                    favoriteData={favorite} 
+                    onRemove={removeFavorite} 
+                />
+            ))}
         </div>
     );
 }
