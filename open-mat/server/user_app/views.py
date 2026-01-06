@@ -63,23 +63,23 @@ class Info(APIView):
 class UserView(UserPermission):
     
     def get(self, request):
-        user_profile, _ = User.objects.get_or_create(user=request.user)
+        user_profile, _ = User.objects.get_or_create(user_x=request.user)
         serializer = UserSerializer(user_profile) 
         return Response(serializer.data, status=s.HTTP_200_OK)
     def post(self, request):
-        user_profile, _ = User.objects.get_or_create(user=request.user)
+        user_profile, _ = User.objects.get_or_create(user_x=request.user)
         serializer = UserSerializer(user_profile, data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=request.user)
+        serializer.save()
         return Response(serializer.data, status=s.HTTP_201_CREATED)
     def put(self, request):
-        user_profile =User.objects.get(user=request.user)
+        user_profile =User.objects.get(user_x=request.user)
         serializer = UserSerializer(user_profile, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=s.HTTP_200_OK)
     def delete(self,  request):
-        user_profile = User.objects.get(user=request.user)
+        user_profile = User.objects.get(user_x=request.user)
         user_profile.delete()
         return Response(status=s.HTTP_204_NO_CONTENT)
         
