@@ -5,7 +5,6 @@ import DetailedGym from "./pages/DetailedGym";
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import FavoritePage from "./pages/FavoritePage";
-import AllEvents from "./pages/AllEvents";
 import LoginSignup from "./pages/LoginSignup";
 import ProfilePage from "./pages/ProfilePage";
 import DojoPage from "./pages/DojoPage";
@@ -37,7 +36,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "events",
-                element: <AllEvents />
+                element: <EventsManager />
             },
             {
                 path: "loginsignup",
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
                 path: "dojo",
                 element: <DojoPage/>
             },
-            {
-                path: "manageevent",
-                element: <EventsManager/>
-            }
         ]
     }
 ]);
