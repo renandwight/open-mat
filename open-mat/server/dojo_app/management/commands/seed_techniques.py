@@ -214,7 +214,7 @@ class Command(BaseCommand):
                 'category': 'positions',
                 'difficulty': 'beginner',
                 'position': 'side_control',
-                'youtube_url': 'https://youtube.com/shorts/ERRNHRLZ5e4?si=EoPVdd7Uz_okDAAs',
+                'youtube_url': 'https://youtube.com/shorts/6nLxHsl0_2I?si=kCP07DCPOokSohjW',
                 'description': 'Establish side control, distribute weight, control hips and shoulders.'
             },
             {
