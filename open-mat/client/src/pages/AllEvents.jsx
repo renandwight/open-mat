@@ -8,7 +8,7 @@ function AllEvents() {
     useEffect(() => {
         const getEvents = async () => {
             try {
-                const response = await api.get('events')
+                const response = await api.get('events/')
                 setEvents(response.data)
             } catch(error) {
                 console.log(error)
@@ -17,12 +17,11 @@ function AllEvents() {
         getEvents();
     }, [])
 
-    // console.log("alleventspage", events)
+    console.log("alleventspage", events)
 
     return(
 
         <div>
-            <h1>Hello Event</h1>
             {events.map((k,v)=>(
                 <Eventcard key={k.id} eventsData={k} />
             ))}
