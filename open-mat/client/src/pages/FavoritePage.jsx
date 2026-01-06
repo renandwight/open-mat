@@ -4,11 +4,16 @@ import { useEffect, useState } from 'react';
 export default function FavoritePage() {
     const [favorites, setFavorites] = useState(null);
     const [loading, setLoading] = useState(true);
+    const token = localStorage.getItem('token');
 
     useEffect(() => {
         const getFavorites = async () => {
             try {
-                const response = await api.get('users/favorites/');
+                const response = await api.get('users/favorites/', {
+                    headers: {
+                        Authorization: `Token ${token}`
+                    }
+                });
                 setFavorites(response.data);
             } catch (error) {
                 console.log(error);
@@ -17,11 +22,15 @@ export default function FavoritePage() {
             }
         };
         getFavorites();
-    }, []);
+    }, [token]);
 
     const removeFavorite = async (gymId) => {
         try {
-            await api.delete(`users/favorites/${gymId}/`);
+            await api.delete(`users/favorites/${gymId}/`, {
+                headers: {
+                    Authorization: `Token ${token}`
+                }
+            });
             setFavorites(favorites.filter(fav => fav.gym.id !== gymId));
         } catch (error) {
             console.log(error);
