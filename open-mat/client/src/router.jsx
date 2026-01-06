@@ -6,6 +6,8 @@ import ErrorPage from './pages/ErrorPage'
 import HomePage from './pages/HomePage'
 import FavoritePage from "./pages/FavoritePage";
 import AllEvents from "./pages/AllEvents";
+import LoginSignup from "./pages/LoginSignup";
+import ProfilePage from "./components/ProfilePage";
 import DojoPage from "./pages/DojoPage";
 import EventsManager from "./pages/EventsManagerPage";
 
@@ -38,6 +40,15 @@ const router = createBrowserRouter([
                 element: <AllEvents />,
             },
             {
+                path: "loginsignup",
+                element: <LoginSignup/>,
+            },
+            {
+                path: "profile",
+                element: <ProfilePage/>,
+            },
+
+
                 path: "dojo",
                 element: <DojoPage />
             }

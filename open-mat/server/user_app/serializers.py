@@ -28,4 +28,16 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source="user_x.email", read_only=True)
     class Meta:
         model = User
-        fields = '__all__'
+        fields = [
+            "first_name",
+            "last_name",
+            "street",
+            "state",
+            "zip",
+            "is_owner",
+            "is_verified",
+            "created_at",
+            "updated_at",
+        ]
+        
+        read_only_fields = ["is_owner", "is_verified", "created_at", "updated_at"]

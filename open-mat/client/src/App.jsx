@@ -1,4 +1,8 @@
 import './App.css';
+import { useEffect, useState } from 'react';
+import { Outlet, useLoaderData, useLocation, useNavigate } from "react-router-dom";
+// do I need this here? see line below - arnold
+// import { useAuth } from './context/AuthContext';
 import { useState, useEffect } from 'react';
 import { Outlet, useNavigate } from "react-router-dom";
 import NavBar from './components/NavBar';
