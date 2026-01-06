@@ -1,6 +1,7 @@
 import {api} from '../api/api'
 import {useParams} from 'react-router-dom'
 import { useEffect, useState} from 'react';
+import {Card, ListGroup} from 'react-bootstrap'
 import Eventcard from '../components/Eventcard';
 import {Link} from 'react-router-dom'
 import ReviewCard from '../components/ReviewCard'
@@ -33,9 +34,16 @@ export default function DetailedGym(){
             <h3>Located at {street} {city}, {state} {zip}</h3>
             <h3> Events </h3>
             {gym_events.map((k,v)=>(
-                <Eventcard key={k.id} eventsData={k} />
-            ))}
-            <h3>Reviews</h3>
+                <Card key={k.id} style={{width: '18rem'}}>
+                <ListGroup variant="flush">
+                    <ListGroup.Item>Event Date: {k.event_date}</ListGroup.Item>
+                    <ListGroup.Item>Gi: {k.gi===true ? "🥋" : "🚫"}</ListGroup.Item>
+                    <ListGroup.Item>Fee: {k.fee === 0.00 ? "None" : k.fee}</ListGroup.Item>
+                    <ListGroup.Item>Open Class: {k.open_class===true ? "Yes" : "No"}</ListGroup.Item>
+                </ListGroup></Card>
+ 
+           ) )}
+            <h3>Reviews:</h3>
             {reviews.length>0 ? reviews.map((k,v)=>(
                 <ReviewCard key={k.id} reviewData={k} />
             )) : <h3>This gym has no reviews? <Link>Add one?</Link></h3>}
