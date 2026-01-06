@@ -37,14 +37,14 @@ const router = createBrowserRouter([
                 element: <AllEvents />,
             },
             {
-                path: "/loginsignup",
+                path: "loginsignup",
                 element: <LoginSignup/>,
             },
             {
-                path: "/profile",
+                path: "profile",
                 element: <ProfilePage/>,
             },
-            
+
 
         ],
     },
