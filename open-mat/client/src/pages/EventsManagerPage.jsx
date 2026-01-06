@@ -74,16 +74,14 @@ export default function EventsManager(){
     // handle create
     const handleCreateEvent = async(e) => {
         e.preventDefault();
-
-        try {
-            const createdEvent = await createEvent({
-                gym_id: Number(newEvent.gym_id),
-                event_date: new Date(newEvent.event_date).toISOString(),     //need to create date time format helper
-                gi: Boolean(newEvent.gi),
-                fee: String(newEvent.fee),
-                open_class: Boolean(newEvent.open_class)
-            });
-            
+        let createdEvent = await createEvent({
+            gym_id: '', // added '' temporarily 
+            event_date: '', //???
+            gi: Boolean(newEvent.gi),
+            fee: String(newEvent.fee),
+            open_class: Boolean(newEvent.open_class)
+        });
+        if (createdEvent) {
             setEvents((prev) => [createdEvent, ...prev]);
 
             // clear / reset form data
@@ -131,22 +129,12 @@ export default function EventsManager(){
         })
     }
 
-    const handleEdit = async (e) => {
-        e.preventDefault()
-        
-        const eventData = {
-            event_date: new Date(editDetails.event_date).toISOString(),
-            gi: Boolean(editDetails.gi),
-            fee: editDetails.fee === "" ? null : String(editDetails.fee),
-            open_class: Boolean(editDetails.open_class),
-        };
-
-        try {
-            const updated = await editEvent(editId, eventData);
-            setEvents((prev) => prev.map((e) => (e.id === updated.id ? updated : e)));
-            setEditId(null);
-        } catch (error) {
-            console.log(error);
+    const handleClick = () => {
+        let updatedEvent = {
+            gym_id: '', // added '' temporarily 
+            event_date: '', // added '' temporarily 
+            gi: '', // added '' temporarily 
+            fee: '', // added '' temporarily 
         }
     };
 
