@@ -4,6 +4,7 @@ from .distance import address_to_coords, zip_to_coords, haversine
 from django.shortcuts import get_object_or_404
 from .serializers import GymSerializer
 from django.utils import timezone
+from django.db.models import Q
 from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTTP_201_CREATED
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -81,23 +82,22 @@ class Nearby_Gyms(APIView):
 #api request looks like http://127.0.0.1:8000/api/gyms/search/?city=Bronx
 class Filtered_Gyms(APIView):
     def get(self, request):
-        #request should probably hold some kind of filter criteria
-        #front end usage: axios.get("/gyms/search", {params: { q: "fitness" }})
-        
-        gyms=Gym.objects.all()
-       
+        gyms = Gym.objects.all()
 
-        city = request.query_params.get("city")
-        name = request.query_params.get("name")
+        q = request.query_params.get("q")
 
-        if city:
-            gyms = gyms.filter(city__iexact=city)
+        if q:
+            tokens = q.split()
 
-        if name:
-            gyms = gyms.filter(name__icontains=name)
+            for token in tokens:
+                gyms = gyms.filter(
+                    Q(name__icontains=token) |
+                    Q(city__icontains=token)
+                )
 
         serializer = GymSerializer(gyms, many=True)
         return Response(serializer.data)
+
        
 class A_Gym(APIView):
     def get_a_gym(self, id):

@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 element: <AllGyms/>
             },
             {
-                path: 'gym/:id',
+                path: 'gyms/:id',
                 element: <DetailedGym/>
             },
             {

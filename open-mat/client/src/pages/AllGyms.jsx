@@ -3,7 +3,7 @@ import {api} from '../api/api'
 import { useEffect, useState} from 'react';
 import { useSearchParams} from "react-router-dom"
 export default function AllGyms(){
-    const [searchParams] = useSearchParams()
+    const [searchParams, setSearchParams] = useSearchParams()
     const [gyms, setGyms] = useState([]);
     const nearby=searchParams.get("nearby")
     const search = searchParams.get("search")
@@ -11,7 +11,9 @@ export default function AllGyms(){
     const radius=searchParams.get("radius") ?? 10
     const city=searchParams.get("city") ?? ""
     const name=searchParams.get("name") ?? ""
-    
+    const [searchText, setSearchText] = useState("")
+    const [zipInput, setZipInput] = useState("")
+    const [radiusInput, setRadiusInput] = useState(10)
     console.log(name)
   useEffect(() => {
     const getGyms = async () => {
@@ -28,7 +30,7 @@ export default function AllGyms(){
             else if (search){
                 
                
-                endpoint=('gyms/search/?city='+city+"&name="+name)
+                endpoint=('gyms/search/?q='+searchText)
                 
             }
             console.log('updating state')
@@ -45,10 +47,64 @@ export default function AllGyms(){
     }
 
     getGyms();
-  }, [])
+  }, [searchParams])
 
   return(
+    
 <div className="border-2">
+    <div className="input-group mb-3">
+  <input
+    type="search"
+    className="form-control"
+    placeholder="Search by gym name or city"
+    value={searchText}
+    onChange={(e) => setSearchText(e.target.value)}
+  />
+  <button
+    className="btn btn-primary"
+    onClick={() =>
+      setSearchParams({
+        search: "1",
+        q: searchText
+      })
+    }
+  >
+    Search
+  </button>
+</div>
+<div className="d-flex gap-2 mb-3">
+  <input
+    type="text"
+    className="form-control"
+    placeholder="Zip code"
+    value={zipInput}
+    onChange={(e) => setZipInput(e.target.value)}
+  />
+
+  <select
+    className="form-select"
+    value={radiusInput}
+    onChange={(e) => setRadiusInput(e.target.value)}
+  >
+    <option value={5}>5 miles</option>
+    <option value={10}>10 miles</option>
+    <option value={25}>25 miles</option>
+  </select>
+
+  <button
+    className="btn btn-secondary"
+    onClick={() =>
+      setSearchParams({
+        nearby: "1",
+        zip: zipInput,
+        radius: radiusInput,
+      })
+    }
+  >
+    Nearby
+  </button>
+</div>
+
       <h2>All Gyms</h2>
       {gyms.map((g, index) => (
        <GymCard key ={g.id} gymData={g} /> 
