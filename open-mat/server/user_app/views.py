@@ -74,7 +74,8 @@ class UserView(UserPermission):
         return Response(serializer.data, status=s.HTTP_201_CREATED)
     def put(self, request):
         user_profile =User.objects.get(user_x=request.user)
-        serializer = UserSerializer(user_profile, data=request.data)
+        serializer = UserSerializer(user_profile, data=request.data, partial=True)
+        print(request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=s.HTTP_200_OK)
