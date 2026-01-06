@@ -19,8 +19,8 @@ export default function LoginSignup() {
         e.preventDefault();
 
         const url = isSignup
-        ? "http://127.0.0.1:8000/api/auth/register"
-        : "http://127.0.0.1:8000/api/auth/login"
+        ? "http://127.0.0.1:8000/api/auth/register/"
+        : "http://127.0.0.1:8000/api/auth/login/"
 
         const res = await axios.post(url, formData);
         login(res.data.token);
