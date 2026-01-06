@@ -79,8 +79,8 @@ export default function EventsManager(){
     const handleCreateEvent = async(e) => {
         e.preventDefault();
         let createdEvent = await createEvent({
-            gym_id: ,
-            event_date: , //???
+            gym_id: '', // added '' temporarily 
+            event_date: '', //???
             gi: Boolean(newEvent.gi),
             fee: String(newEvent.fee),
             open_class: Boolean(newEvent.open_class)
@@ -118,10 +118,10 @@ export default function EventsManager(){
 
     const handleClick = () => {
         let updatedEvent = {
-            gym_id: ,
-            event_date: ,
-            gi: ,
-            fee: ,
+            gym_id: '', // added '' temporarily 
+            event_date: '', // added '' temporarily 
+            gi: '', // added '' temporarily 
+            fee: '', // added '' temporarily 
         }
         updateEvent(updatedEvent)
     }
