@@ -1,5 +1,4 @@
-
-function ReviewCard({ reviewData }) {
+export default function ReviewCard({ reviewData }) {
   const { rating, comment, created_at, user } = reviewData;
 
   return (
@@ -13,5 +12,3 @@ function ReviewCard({ reviewData }) {
     </div>
   );
 }
-
-export default ReviewCard;
