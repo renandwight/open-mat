@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
-
-
 export default function ProfilePage() {
     const { isAuthenticated, user } = useAuth();
     const navigate = useNavigate();
@@ -24,7 +22,7 @@ export default function ProfilePage() {
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
-        if (!isAuthenticated) navigate("/loginsignup"); //path to login/signup page
+        if (!isAuthenticated) navigate("/loginsignup");
     }, [isAuthenticated, navigate]);
 
     useEffect(() => {
@@ -32,7 +30,8 @@ export default function ProfilePage() {
 
         const fetchProfile = async () => {
             try {
-                const res = await axios.get("http://127.0.0.1:8000/api/auth/users/profile",
+                const res = await axios.get(
+                    "http://127.0.0.1:8000/api/auth/users/profile/",
                     {
                         headers: {
                             Authorization: `Token ${localStorage.getItem("token")}`,
@@ -41,18 +40,28 @@ export default function ProfilePage() {
                 );
                 setProfile(res.data);
             } catch (err) {
-                console.error('error fetching profile', err);
+                console.error("error fetching profile", err);
             }
         };
+
         fetchProfile();
     }, [isAuthenticated]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const payload = {
+            first_name: profile.first_name,
+            last_name: profile.last_name,
+            street: profile.street,
+            state: profile.state,
+            zip: profile.zip,
+        };
+
         try {
             const res = await axios.put(
-                "http://127.0.0.1:8000/api/auth/users/profile",
-                profile,
+                "http://127.0.0.1:8000/api/auth/users/profile/",
+                payload,
                 {
                     headers: {
                         Authorization: `Token ${localStorage.getItem("token")}`,
@@ -61,18 +70,15 @@ export default function ProfilePage() {
             );
             setProfile(res.data);
             setIsEditing(false);
-
         } catch (err) {
-            console.error('error updating profile', err);
-
+            console.error("error updating profile:", err.response?.data);
         }
-    }
+    };
 
     return (
         <div style={{ padding: "20px" }}>
             <h1>MY PROFILE</h1>
             <h2>Welcome {user?.email}</h2>
-
 
             {!isEditing && (
                 <div
@@ -89,14 +95,12 @@ export default function ProfilePage() {
                     <p><strong>Street:</strong> {profile.street}</p>
                     <p><strong>State:</strong> {profile.state}</p>
                     <p><strong>Zip:</strong> {profile.zip}</p>
-                    
 
                     <button onClick={() => setIsEditing(true)}>
                         Edit Profile
                     </button>
                 </div>
             )}
-
 
             {isEditing && (
                 <form
@@ -126,36 +130,39 @@ export default function ProfilePage() {
                     />
 
                     <input
-                        type="Street"
                         placeholder="Street"
                         value={profile.street ?? ""}
                         onChange={(e) =>
                             setProfile({ ...profile, street: e.target.value })
                         }
                     />
+
                     <input
-                        type="State"
                         placeholder="State"
                         value={profile.state ?? ""}
                         onChange={(e) =>
                             setProfile({ ...profile, state: e.target.value })
                         }
                     />
+
                     <input
-                        type="Zip Code"
                         placeholder="Zip Code"
                         value={profile.zip ?? ""}
                         onChange={(e) =>
-                            setProfile({ ...profile, zip: e.target.value })
+                            setProfile({
+                                ...profile,
+                                zip:
+                                    e.target.value === ""
+                                        ? null
+                                        : Number(e.target.value),
+                            })
                         }
                     />
+
                     <p><strong>Owner:</strong> {profile.is_owner ? "Yes" : "No"}</p>
                     <p><strong>Verified:</strong> {profile.is_verified ? "Yes" : "No"}</p>
                     <p><strong>Created:</strong> {profile.created_at}</p>
                     <p><strong>Updated:</strong> {profile.updated_at}</p>
-
-
-
 
                     <div style={{ marginTop: "10px" }}>
                         <button type="submit">Save</button>
@@ -170,9 +177,5 @@ export default function ProfilePage() {
                 </form>
             )}
         </div>
-
-    )
-
-
-
+    );
 }
