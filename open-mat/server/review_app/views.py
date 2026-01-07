@@ -45,7 +45,7 @@ class ReviewDetail(UserPermission):
         review = get_object_or_404(Review, id=id)
 
         # only owner can edit
-        if review.user != request.user:
+        if review.client != request.user:
             return Response({"detail": "Not authorized."}, status=s.HTTP_403_FORBIDDEN)
 
         serializer = ReviewWriteSerializer(review, data=request.data, partial=True)
@@ -61,7 +61,7 @@ class ReviewDetail(UserPermission):
         review = get_object_or_404(Review, id=id)
 
         # only owner can delete
-        if review.user != request.user:
+        if review.client != request.user:
             return Response({"detail": "Not authorized."}, status=s.HTTP_403_FORBIDDEN)
 
         review.delete()
