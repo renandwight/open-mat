@@ -66,3 +66,14 @@ class ReviewDetail(UserPermission):
 
         review.delete()
         return Response(status=s.HTTP_204_NO_CONTENT)
+
+# 1/7/25 11:18am alex, this is getting all the reviews that the current logged iun user made
+
+class MyReviews(UserPermission):
+    def get(self, request):
+        reviews = Review.objects.filter(client=request.user).order_by("-created_at")
+        return Response(
+            ReviewReadSerializer(reviews, many=True).data,
+            status=s.HTTP_200_OK
+        )
+# end of arnold's code block

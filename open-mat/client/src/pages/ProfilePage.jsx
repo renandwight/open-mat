@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
+import ReviewCard from "../components/ReviewCard";
 
 export default function ProfilePage() {
     const { isAuthenticated, user } = useAuth();
@@ -74,6 +75,33 @@ export default function ProfilePage() {
             console.error("error updating profile:", err.response?.data);
         }
     };
+    // adding review card below:
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        if (!isAuthenticated) return;
+
+        const fetchReviews = async () => {
+            try {
+                const res = await axios.get(
+                    "http://127.0.0.1:8000/api/reviews/me/",
+                    {
+                        headers: {
+                            Authorization: `Token ${localStorage.getItem("token")}`,
+                        },
+                    }
+                );
+                setReviews(res.data);
+            } catch (err) {
+                console.error("Error fetching user reviews", err);
+            }
+        };
+
+        fetchReviews();
+    }, [isAuthenticated]);
+    // end of reviewcard code block
+
+
+
 
     return (
         <div style={{ padding: "20px" }}>
@@ -159,10 +187,10 @@ export default function ProfilePage() {
                         }
                     />
 
-                    <p><strong>Owner:</strong> {profile.is_owner ? "Yes" : "No"}</p>
-                    <p><strong>Verified:</strong> {profile.is_verified ? "Yes" : "No"}</p>
-                    <p><strong>Created:</strong> {profile.created_at}</p>
-                    <p><strong>Updated:</strong> {profile.updated_at}</p>
+                    {/* <p><strong>Owner:</strong> {profile.is_owner ? "Yes" : "No"}</p> */}
+                    {/* <p><strong>Verified:</strong> {profile.is_verified ? "Yes" : "No"}</p> */}
+                    {/* <p><strong>Created:</strong> {profile.created_at}</p> */}
+                    {/* <p><strong>Updated:</strong> {profile.updated_at}</p> */}
 
                     <div style={{ marginTop: "10px" }}>
                         <button type="submit">Save</button>
@@ -176,6 +204,21 @@ export default function ProfilePage() {
                     </div>
                 </form>
             )}
+            {/* review card code block below */}
+            <hr />
+
+            <h3>My Reviews</h3>
+
+            {reviews.length === 0 && <p>No reviews yet.</p>}
+
+            {reviews.map((review) => (
+                <ReviewCard key={review.id} reviewData={review} />
+            ))}
+            {/* end of review card code block */}
+
         </div>
+
+
+
     );
 }
