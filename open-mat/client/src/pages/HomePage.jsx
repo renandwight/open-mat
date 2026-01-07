@@ -36,7 +36,7 @@ export default function HomePage() {
         <h2>Create An Account</h2>
         <p>Register to save your favorite gyms and events</p>
         <Button as={Link} to="/loginsignup" variant="outline-primary">
-          Login / Sign Up
+          Login / Sign-up
         </Button>
       </div>
     </div>
