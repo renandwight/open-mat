@@ -112,7 +112,7 @@ export default function ProfilePage() {
                 {!isEditing && (
                     <div
                         style={{
-                            border: "1px solid #ccc",
+                            border: "1px solid #555555",
                             borderRadius: "10px",
                             padding: "20px",
                             maxWidth: "400px",
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                     <form
                         onSubmit={handleSubmit}
                         style={{
-                            border: "1px solid #ccc",
+                            border: "1px solid #555555",
                             borderRadius: "10px",
                             padding: "20px",
                             maxWidth: "400px",

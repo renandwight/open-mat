@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { HiMenu } from 'react-icons/hi';
+import logo from '../assets/logo.png';
 
 function NavBar({ user, onLogout }) {
   const [show, setShow] = useState(false);
@@ -18,14 +19,14 @@ function NavBar({ user, onLogout }) {
     <>
       <Navbar bg="transparent" className="mb-3">
         <Container>
-          <Link to="/" className="navbar-brand" style={{ fontWeight: 'bold', fontSize: '25px' }}>
-            Open Mat
+          <Link to="/" className="navbar-brand">
+            <img src={logo} alt="Open Mat" style={{ height: '150px', width: 'auto' }} />
           </Link>
           <Button 
             className="hamburger-button"
             onClick={handleShow}
           >
-            <HiMenu style={{ fontSize: '30px', color: 'black' }} />
+            <HiMenu style={{ fontSize: '30px', color: '#555555' }} />
           </Button>
         </Container>
       </Navbar>

@@ -18,7 +18,7 @@ export default function HomePage() {
           <h2 className="text-center mb-4">What You Can Do</h2>
           <Row className="g-4">
             <Col md={4}>
-              <Card className="h-100 text-center">
+              <Card as={Link} to="/gyms" className="h-100 text-center link-card">
                 <Card.Body>
                   <Card.Title>Browse Gyms</Card.Title>
                   <Card.Text>
@@ -28,7 +28,7 @@ export default function HomePage() {
               </Card>
             </Col>
             <Col md={4}>
-              <Card className="h-100 text-center">
+              <Card as={Link} to="/events" className="h-100 text-center link-card">
                 <Card.Body>
                   <Card.Title>Find Open Mats</Card.Title>
                   <Card.Text>
@@ -39,7 +39,7 @@ export default function HomePage() {
             </Col>
 
             <Col md={4}>
-              <Card className="h-100 text-center">
+              <Card as={Link} to="/dojo" className="h-100 text-center link-card">
                 <Card.Body>
                   <Card.Title>Learn Techniques</Card.Title>
                   <Card.Text>

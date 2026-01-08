@@ -53,7 +53,7 @@ export default function AllGyms(){
 
   return(
     
-<div className="border-2">
+<div className="border-2 gym-search-card">
     <div className="input-group mb-3">
   <input
     type="search"

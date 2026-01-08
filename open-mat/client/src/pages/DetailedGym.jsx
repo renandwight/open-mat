@@ -6,7 +6,7 @@ import Eventcard from '../components/Eventcard';
 import { useAuth } from '../context/AuthContext';
 import EditGymModal from "../components/EditGymModal";
 import {Link} from 'react-router-dom'
-import ReviewCard from '../components/ReviewCard'
+import GymReviewCard from '../components/GymReviewCard'
 
 
 export default function DetailedGym(){
@@ -234,7 +234,7 @@ export default function DetailedGym(){
 
       {reviews.length > 0 ? (
         reviews.map((review) => (
-          <ReviewCard key={review.id} reviewData={review} />
+          <GymReviewCard key={review.id} reviewData={review} />
         ))
       ) : (
         <h5 className="text-muted">

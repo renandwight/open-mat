@@ -13,5 +13,103 @@
 }
 
 .hamburger-button:hover {
-  background-color: lightgray !important;
+  background-color: #e31c37 !important;
+}
+
+.nav-link {
+  font-family: 'Montserrat', sans-serif;
+  color: #555555 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #e31c37 !important;
+}
+
+.hamburger-button {
+  border: 1px solid #555555 !important;
+  padding: 6px 8px !important;
+}
+
+.hamburger-button:hover {
+  border-color: #e31c37 !important;
+}
+
+.home-page h1,
+.home-page h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+}
+
+.welcome-section {
+  background-color: #e31c37;
+  color: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 20px #555555;
+}
+
+.welcome-section p {
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.features-section .card-title {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #e31c37;
+}
+
+.features-section .card {
+  background-color: #ffffff;
+  border: 2px solid #555555;
+}
+
+.link-card {
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.link-card:hover {
+  transform: translateY(-4px);
+  border-color: #e31c37;
+  box-shadow: 0 10px 18px #555555;
+}
+
+.gym-search-card {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 18px #555555;
+}
+
+.gym-search-card .form-control,
+.gym-search-card .form-select {
+  background-color: #ffffff;
+}
+
+.gym-search-card .btn {
+  border-radius: 12px;
+}
+
+.welcome-section .btn-outline-primary {
+  color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+.welcome-section .btn-outline-primary:hover {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #e31c37 !important;
+}
+
+.home-page .card-text {
+  color: #555555;
 }
