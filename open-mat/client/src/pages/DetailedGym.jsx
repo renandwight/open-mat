@@ -16,6 +16,11 @@ export default function DetailedGym(){
     const [isOwner, setIsOwner] = useState(false);
     const { isAuthenticated, user} = useAuth();
     const token = localStorage.getItem('token');
+    const [rating, setRating] = useState(5);
+    const [comment, setComment] = useState("");
+    const [reviewError, setReviewError] = useState(null);
+    const [isSubmittingReview, setIsSubmittingReview] = useState(false);
+
 
     useEffect(() => {
         if (!id) return;
@@ -77,6 +82,53 @@ export default function DetailedGym(){
 
     const {name, street, city, state, zip, gym_events, reviews} = gymData;
 
+    const submitReview = async (e) => {
+      e.preventDefault();
+      setReviewError(null);
+
+      if (!isAuthenticated) {
+        setReviewError("You must be logged in to leave a review.");
+        return;
+      }
+
+      try {
+        setIsSubmittingReview(true);
+
+        const payload = {
+          gym: Number(id),
+          rating: Number(rating),
+          comment,
+        };
+
+        const res = await api.post("reviews/", payload, {
+          headers: { Authorization: `Token ${token}` },
+        });
+
+        // res.data should be the created review (ideally using ReviewReadSerializer)
+        const newReview = res.data;
+
+        // Update local UI immediately
+        setGymData((prev) => ({
+          ...prev,
+          reviews: [newReview, ...(prev.reviews || [])],
+        }));
+
+        // reset form
+        setRating(5);
+        setComment("");
+      } catch (err) {
+        console.log(err);
+        const msg =
+          err?.response?.data
+            ? JSON.stringify(err.response.data)
+            : "Failed to submit review.";
+        setReviewError(msg);
+      } finally {
+        setIsSubmittingReview(false);
+      }
+    };
+
+
    return (
     <div className="container mt-4">
 
@@ -133,17 +185,64 @@ export default function DetailedGym(){
 
       {/* REVIEWS */}
       <h3>Reviews</h3>
+
+      {isAuthenticated ? (
+        <Card className="mb-3">
+          <Card.Body>
+            <h5 className="mb-3">Leave a review</h5>
+
+            <form onSubmit={submitReview}>
+              <div className="mb-3">
+                <label className="form-label">Rating</label>
+                <select
+                  className="form-select"
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                >
+                  {[1,2,3,4,5].map((n) => (
+                    <option key={n} value={n}>{n}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="mb-3">
+                <label className="form-label">Comment</label>
+                <textarea
+                  className="form-control"
+                  rows={3}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="What was your experience like?"
+                />
+              </div>
+
+              {reviewError && (
+                <div className="text-danger mb-2">{reviewError}</div>
+              )}
+
+              <Button type="submit" disabled={isSubmittingReview}>
+                {isSubmittingReview ? "Submitting..." : "Submit Review"}
+              </Button>
+            </form>
+          </Card.Body>
+        </Card>
+      ) : (
+        <h5 className="text-muted">
+          Log in to leave a review.
+        </h5>
+      )}
+
       {reviews.length > 0 ? (
-        reviews.map(review => (
+        reviews.map((review) => (
           <ReviewCard key={review.id} reviewData={review} />
         ))
       ) : (
         <h5 className="text-muted">
-          This gym has no reviews? <Link>Add one?</Link>
+          This gym has no reviews.
         </h5>
       )}
+
 
     </div>
   )
 };
-
