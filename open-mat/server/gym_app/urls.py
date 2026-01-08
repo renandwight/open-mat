@@ -8,5 +8,5 @@ urlpatterns = [
     path('search/',Filtered_Gyms.as_view(), name="search-results"),
     path('my/', My_Gyms.as_view(), name='my-gyms'),
     path('nearby/', Nearby_Gyms.as_view(), name='nearby-gyms' ),
-    path("<int:gym_id>/reviews/", GymReviews.as_view(), name="gym-reviews"),
+    path("<int:gym_id>/reviews/", GymReviews.as_view(), name="gym-reviews"), #Alex added this if anything breaks tis was I
 ]
