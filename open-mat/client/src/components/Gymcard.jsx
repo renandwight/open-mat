@@ -7,7 +7,7 @@ import { useAuth } from '../context/AuthContext';
 export default function GymCard({ gymData }) {
     const { id, name, street, city, state, zip, distance } = gymData;
     const [isFavorited, setIsFavorited] = useState(false);
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated ,user} = useAuth();
     const token = localStorage.getItem('token');
     const link = "" + id;
 
@@ -55,7 +55,7 @@ export default function GymCard({ gymData }) {
                             <h2>{name}</h2>
                             <h3>{street} {city}, {state} {zip}</h3>
                             <p>{distance ? "distance: " + distance : null}</p>
-                            <small>gymid {id}</small>
+                            
                         </Link>
                     </div>
                     
