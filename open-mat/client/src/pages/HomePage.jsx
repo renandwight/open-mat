@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button, Card, Row, Col, Container } from 'react-bootstrap';
+import HomePageCarouse from "../components/Carousel";
 
 export default function HomePage() {
   return (
@@ -7,6 +8,9 @@ export default function HomePage() {
       <div className="welcome-section">
         <h1>Welcome to Open Mat</h1>
         <p>Find Brazilian Jiu-Jitsu open-mat sessions near you</p>
+        <div>
+          <HomePageCarouse />
+        </div>
         <div className="features-section">
           <Button as={Link} to="/gyms" variant="outline-primary">
             Search open-mats
