@@ -9,16 +9,16 @@ from .serializers import EventReadSerializer, EventWriteSerializer
 
 from user_app.views import UserPermission
 
-class EventListCreateView(APIView):
-    authentication_classes = UserPermission.authentication_classes
+class EventListCreateView(UserPermission):
+    # authentication_classes = UserPermission.authentication_classes
 
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [permission() for permission in UserPermission.permission_classes]
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [permission() for permission in UserPermission.permission_classes]
 
     def get(self, request):
-        events = Event.objects.select_related("gym", "user").order_by("-event_date")
+        events = Event.objects.select_related("gym", "user").filter(user=request.user).order_by("-event_date")
         serializer = EventReadSerializer(events, many=True)
         return Response(serializer.data)
 
@@ -30,13 +30,13 @@ class EventListCreateView(APIView):
         return Response(EventReadSerializer(event).data, status=status.HTTP_201_CREATED)
 
 
-class EventDetailView(APIView):
-    authentication_classes = UserPermission.authentication_classes
+class EventDetailView(UserPermission):
+    # authentication_classes = UserPermission.authentication_classes
 
-    def get_permissions(self):
-        if self.request.method == "GET":
-            return [AllowAny()]
-        return [permission() for permission in UserPermission.permission_classes]
+    # def get_permissions(self):
+    #     if self.request.method == "GET":
+    #         return [AllowAny()]
+    #     return [permission() for permission in UserPermission.permission_classes]
 
     def get_object(self, id):
         return get_object_or_404(

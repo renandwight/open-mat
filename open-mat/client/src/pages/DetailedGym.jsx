@@ -4,7 +4,7 @@ import { useEffect, useState} from 'react';
 import {Card, ListGroup,Button} from 'react-bootstrap'
 import Eventcard from '../components/Eventcard';
 import { useAuth } from '../context/AuthContext';
-
+import EditGymModal from "../components/EditGymModal";
 import {Link} from 'react-router-dom'
 import ReviewCard from '../components/ReviewCard'
 
@@ -41,7 +41,7 @@ export default function DetailedGym(){
                         const response = await api.get('users/favorites/', {
                             headers: { Authorization: `Token ${token}` }
                         });
-                        setIsFavorited(response.data.some(fav => fav.gym_details.id === id));
+                        setIsFavorited(response.data.some(fav => fav.gym_details.id === Number(id)));
                     } catch (error) {
                         console.log(error);
                     }
@@ -50,8 +50,9 @@ export default function DetailedGym(){
     }, [id, isAuthenticated,token]);
     useEffect(() => {
   if (!isAuthenticated || !gymData || !user) return
-
+  console.log(user, gymData.created_by)
   if (gymData.created_by === user.id) {
+    
     setIsOwner(true)
   }
 }, [gymData, isAuthenticated, user])
@@ -98,16 +99,9 @@ export default function DetailedGym(){
                 variant={isFavorited ? "outline-danger" : "outline-primary"}
                 onClick={toggleFavorite}
               >
-                {isFavorited ? "★ Favorited" : "☆ Add Favorite"}
+                {isFavorited ? "Remove Favorite" : "Add Favorite"}
               </Button>
-              {isOwner && (
-                <Button
-                 size="sm"
-                variant="outline-secondary"
-                    >
-                Edit Gym
-                 </Button>
-            )}
+              
           </div>
         )}
         </div>
@@ -149,7 +143,6 @@ export default function DetailedGym(){
         </h5>
       )}
 
-      <small className="text-muted">Gym ID: {id}</small>
     </div>
   )
 };
