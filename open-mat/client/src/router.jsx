@@ -8,6 +8,7 @@ import FavoritePage from "./pages/FavoritePage";
 import LoginSignup from "./pages/LoginSignup";
 import ProfilePage from "./pages/ProfilePage";
 import DojoPage from "./pages/DojoPage";
+import MyGyms from "./pages/MyGyms";
 import EventsManager from "./pages/EventsManagerPage";
 
 const router = createBrowserRouter([
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
             },
             {
                 path: 'gyms',
-                element: <AllGyms/>
+                element: <AllGyms/>,
+            },
+            {
+                path: 'gyms/my',
+                element: <MyGyms/>
             },
             {
                 path: 'gyms/:id',
