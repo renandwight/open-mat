@@ -70,3 +70,4 @@ function NavBar({ user, onLogout }) {
 }
 
 export default NavBar;
+
