@@ -41,7 +41,7 @@ export default function DetailedGym(){
                         const response = await api.get('users/favorites/', {
                             headers: { Authorization: `Token ${token}` }
                         });
-                        setIsFavorited(response.data.some(fav => fav.gym_details.id === id));
+                        setIsFavorited(response.data.some(fav => fav.gym_details.id === Number(id)));
                     } catch (error) {
                         console.log(error);
                     }
