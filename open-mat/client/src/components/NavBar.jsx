@@ -13,6 +13,7 @@ function NavBar({ user, onLogout }) {
   const handleLogout = () => {
     onLogout();
     setShow(false);
+    window.location.href = '/';
   };
 
   return (
