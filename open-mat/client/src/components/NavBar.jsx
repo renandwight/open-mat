@@ -45,6 +45,7 @@ function NavBar({ user, onLogout }) {
                 <Nav.Link as={Link} to="/favorites" onClick={handleClose}>Favorites</Nav.Link>
                 <Nav.Link as={Link} to="/dojo" onClick={handleClose}>Dojo</Nav.Link>
                 <Nav.Link as={Link} to="/profile" onClick={handleClose}>Profile</Nav.Link>
+                <Nav.Link as={Link} to="/gyms/my" onClick={handleClose}>My Gyms</Nav.Link>
             </>
             ) : (
             <Nav.Link as={Link} to="/dojo" onClick={handleClose}>Dojo</Nav.Link>
