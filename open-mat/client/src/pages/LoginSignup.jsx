@@ -9,12 +9,16 @@ export default function LoginSignup() {
         email:"",
         password: "",
     });
+    // adding for password error feature
+    const [error, setError] = useState("");
 
     const {login} = useAuth();
     const navigate = useNavigate();
 
-    const handleChange = (e) =>
+    const handleChange = (e) =>{
         setFormData({ ...formData, [e.target.name]: e.target.value});
+        setError(""); //adding this for error on typing
+      };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -22,9 +26,15 @@ export default function LoginSignup() {
         ? "http://127.0.0.1:8000/api/auth/register/"
         : "http://127.0.0.1:8000/api/auth/login/"
 
+        try {
         const res = await axios.post(url, formData);
         login(res.data.token);
         navigate("/");
+        } catch (err) {
+          if (!isSignup) {
+            setError("hey! wrong password!"); //warning when putting the wrong password when logging in
+          }
+        }
     };
 
     return (
@@ -47,6 +57,9 @@ export default function LoginSignup() {
           onChange={handleChange}
           className="border p-2"
         />
+        {/* to populate error message */}
+        {error && <p className="text-red-600 text-sm">{error}</p>}
+
         <button className="bg-black text-white p-2">
           {isSignup ? "Sign Up" : "Login"}
         </button>
