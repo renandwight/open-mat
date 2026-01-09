@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import ReviewCard from "../components/ReviewCard";
+import { Button } from 'react-bootstrap';
 
 export default function ProfilePage() {
     const { isAuthenticated, user } = useAuth();
@@ -107,7 +108,7 @@ export default function ProfilePage() {
 
     const handleReviewDeleted = (deletedId) => {
         setReviews((prev) => prev.filter((r) => r.id !== deletedId));
-        };
+    };
 
     // end of reviewcard code block
 
@@ -136,9 +137,13 @@ export default function ProfilePage() {
                         <p><strong>State:</strong> {profile.state}</p>
                         <p><strong>Zip:</strong> {profile.zip}</p>
 
-                        <button onClick={() => setIsEditing(true)}>
+                        <Button
+                            variant="outline-primary"
+                            onClick={() => setIsEditing(true)}
+                        >
                             Edit Profile
-                        </button>
+                        </Button>
+
                     </div>
                 )}
 
@@ -216,8 +221,8 @@ export default function ProfilePage() {
                         </div>
                     </form>
                 )}
-                </div>
-                <div style={{ flex: 1 }}>
+            </div>
+            <div style={{ flex: 1 }}>
                 {/* review card code block below */}
                 <hr />
 
@@ -226,12 +231,12 @@ export default function ProfilePage() {
                 {reviews.length === 0 && <p>No reviews yet.</p>}
 
                 {reviews.map((review) => (
-                    <ReviewCard 
-                        key={review.id} 
-                        reviewData={review} 
+                    <ReviewCard
+                        key={review.id}
+                        reviewData={review}
                         onUpdated={handleReviewUpdated}
                         onDeleted={handleReviewDeleted}
-                        />
+                    />
                 ))}
                 {/* end of review card code block */}
 
