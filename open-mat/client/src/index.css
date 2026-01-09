@@ -183,3 +183,37 @@ select:focus {
 .bg-black {
   background-color: var(--brand-red);
 }
+
+
+/* Carousel Styling */
+
+.homepage-carousel {
+  max-width: 100%;
+} */
+
+.homepage-carousel .carousel-item {
+  height: 10px;
+}
+
+.homepage-carousel .carousel-img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.homepage-carousel .carousel-item {
+  height: clamp(260px, 45vw, 520px);
+}
+
+/* Homepage cards */
+.homepage-card {
+  text-decoration: none;
+}
+
+.homepage-card:hover {
+  background-color: #e8e8e8
+}
+
+.homepage-community-card {
+  background-color: #e8e8e8;
+}
