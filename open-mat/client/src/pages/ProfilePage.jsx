@@ -98,6 +98,17 @@ export default function ProfilePage() {
 
         fetchReviews();
     }, [isAuthenticated]);
+
+    const handleReviewUpdated = (updatedReview) => {
+        setReviews((prev) =>
+            prev.map((r) => (r.id === updatedReview.id ? updatedReview : r))
+        );
+    };
+
+    const handleReviewDeleted = (deletedId) => {
+        setReviews((prev) => prev.filter((r) => r.id !== deletedId));
+        };
+
     // end of reviewcard code block
 
 
@@ -215,7 +226,12 @@ export default function ProfilePage() {
                 {reviews.length === 0 && <p>No reviews yet.</p>}
 
                 {reviews.map((review) => (
-                    <ReviewCard key={review.id} reviewData={review} />
+                    <ReviewCard 
+                        key={review.id} 
+                        reviewData={review} 
+                        onUpdated={handleReviewUpdated}
+                        onDeleted={handleReviewDeleted}
+                        />
                 ))}
                 {/* end of review card code block */}
 
