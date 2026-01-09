@@ -22,6 +22,7 @@ export default function EventsManager(){
     // set state for form data
     const [newEvent, setNewEvent] = useState({
         gym_id: "", 
+        gym_name: "",
         event_date: "",
         gi: false,
         fee: "",
@@ -84,7 +85,8 @@ export default function EventsManager(){
         try {
             const createdEvent = await createEvent({
                 gym_id: Number(newEvent.gym_id),
-                event_date: new Date(newEvent.event_date).toISOString(),     //need to create date time format helper
+                gym_name: String(newEvent.gym_name),
+                event_date: new Date(newEvent.event_date).toISOString(),
                 gi: Boolean(newEvent.gi),
                 fee: String(newEvent.fee),
                 open_class: Boolean(newEvent.open_class)
@@ -95,6 +97,7 @@ export default function EventsManager(){
             // clear / reset form data
             setNewEvent({
                 gym_id: "", 
+                gym_name: "",
                 event_date: "",
                 gi: false,
                 fee: "",

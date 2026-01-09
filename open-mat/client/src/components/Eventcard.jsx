@@ -1,7 +1,11 @@
 import { Card, Container, ListGroup, Button } from 'react-bootstrap';
 
 function Eventcard({eventsData, onEdit, onDelete}) {
-    const { id, gym_id, event_date, gi, fee, open_class} = eventsData
+    const { id, gym_id, gym_name, event_date, gi, fee, open_class} = eventsData
+
+    // console.log(gym_name.slice(0,gym_name.indexOf("located")).trim())
+
+    let gym_name_trimmed = gym_name.slice(0,gym_name.indexOf("located")).trim()
     
     // date time formatter
     const formatDateTime = (datetimeObj) => {
@@ -20,6 +24,7 @@ function Eventcard({eventsData, onEdit, onDelete}) {
         <Container className="d-flex justify-content-center">
             <Card style={{width: '18rem'}}>
                 <ListGroup variant="flush">
+                    <ListGroup.Item>{gym_name_trimmed}</ListGroup.Item>
                     <ListGroup.Item>Event Date: {formatDateTime(event_date)}</ListGroup.Item>
                     <ListGroup.Item>Gi: {gi===true ? "🥋" : "🚫"}</ListGroup.Item>
                     <ListGroup.Item>Fee: {fee === 0.00 ? "None" : fee}</ListGroup.Item>
