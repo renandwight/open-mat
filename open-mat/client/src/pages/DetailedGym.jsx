@@ -128,6 +128,16 @@ export default function DetailedGym(){
       }
     };
 
+    // date time formatter
+    const formatDateTime = (datetimeObj) => {
+        const datetime = new Date(datetimeObj);
+        // return isNaN(d.getTime()) ? iso : d.toLocaleString();
+        return new Intl.DateTimeFormat("en-US", {
+            dateStyle: "medium",
+            timeStyle: "short",
+        }).format(datetime);
+    };
+
 
    return (
     <div className="container mt-4">
@@ -167,7 +177,7 @@ export default function DetailedGym(){
           <Card key={event.id} style={{ width: '18rem' }}>
             <ListGroup variant="flush">
               <ListGroup.Item>
-                Event Date: {event.event_date}
+                Event Date: {formatDateTime(event.event_date)}
               </ListGroup.Item>
               <ListGroup.Item>
                 Gi: {event.gi ? "🥋" : "🚫"}
