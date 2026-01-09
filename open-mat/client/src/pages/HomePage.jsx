@@ -27,19 +27,28 @@ export default function HomePage() {
               <Card.Body className="homepage-card" as={Link} to="/gyms">
                 <Card.Title>Browse Gyms</Card.Title>
                 <Card.Text>
-                  Find gyms near you by zip code or search by name.
+                  Find gyms near you by zip code or by name.
                 </Card.Text>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
             <Card className="h-100 text-center">
-              <Card.Body className="homepage-card" as={Link} to="/events">
-                <Card.Title>Organize Events</Card.Title>
-                <Card.Text>
-                  Setup and manage open-mat events.
-                </Card.Text>
-              </Card.Body>
+              {token ? (
+                <Card.Body className="homepage-card" as={Link} to="/events">
+                  <Card.Title>Organize Events</Card.Title>
+                  <Card.Text>
+                    Setup and manage open-mat events.
+                  </Card.Text>
+                </Card.Body>
+              ) : (
+                <Card.Body className="homepage-card-disabled">
+                  <Card.Title>Organize Events</Card.Title>
+                  <Card.Text>
+                    Login to create or view events.
+                  </Card.Text>
+                </Card.Body>
+              )}
             </Card>
           </Col>
           <Col md={4}>
@@ -61,7 +70,6 @@ export default function HomePage() {
             <Card.Body className="homepage-community-card">
               <Card.Title>Join Our Community</Card.Title>
               <Card.Text>
-                Register to save your favorite gyms and events.
               </Card.Text>
               <Button as={Link} to="/loginsignup" variant="outline-primary">
                 Login / Sign-up
