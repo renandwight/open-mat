@@ -124,13 +124,15 @@ export default function ProfilePage() {
                 {!isEditing && (
                     <div
                         style={{
-                            border: "1px solid #555555",
+                            backgroundColor: "#e11d2e",
                             borderRadius: "10px",
                             padding: "20px",
                             maxWidth: "400px",
                             marginTop: "20px",
+                            color: "white",
                         }}
                     >
+
                         <p><strong>First Name:</strong> {profile.first_name}</p>
                         <p><strong>Last Name:</strong> {profile.last_name}</p>
                         <p><strong>Street:</strong> {profile.street}</p>
@@ -138,7 +140,7 @@ export default function ProfilePage() {
                         <p><strong>Zip:</strong> {profile.zip}</p>
 
                         <Button
-                            variant="outline-primary"
+                            variant="light"
                             onClick={() => setIsEditing(true)}
                         >
                             Edit Profile
@@ -151,11 +153,12 @@ export default function ProfilePage() {
                     <form
                         onSubmit={handleSubmit}
                         style={{
-                            border: "1px solid #555555",
+                           backgroundColor: "#e11d2e",
                             borderRadius: "10px",
                             padding: "20px",
                             maxWidth: "400px",
                             marginTop: "20px",
+                            color: "white",
                         }}
                     >
                         <input

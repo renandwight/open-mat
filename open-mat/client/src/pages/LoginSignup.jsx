@@ -37,49 +37,95 @@ export default function LoginSignup() {
       }
     }
   };
-
+  
   return (
-    <div className="max-w-sm mx-auto mt-20 p-6 border rounded">
-      <h1 className="text-xl mb-4">
-        {isSignup ? "Create Account" : "Login"}
+  <div
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#f8f9fa",
+      padding: "20px",
+    }}
+  >
+    <div
+      style={{
+        backgroundColor: "#e11d2e", // same red as homepage
+        borderRadius: "20px",
+        padding: "60px 40px",
+        width: "100%",
+        maxWidth: "700px",
+        color: "white",
+        boxShadow: "0 10px 25px rgba(0,0,0,0.3)",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ letterSpacing: "4px", marginBottom: "10px" }}>
+        {isSignup ? "CREATE ACCOUNT" : "WELCOME BACK"}
       </h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <p style={{ marginBottom: "30px", opacity: 0.9 }}>
+        {isSignup
+          ? "Join the Open Mat community"
+          : "Log in to find open mats near you"}
+      </p>
+
+      <form
+        onSubmit={handleSubmit}
+        style={{
+          maxWidth: "400px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          gap: "15px",
+        }}
+      >
         <input
           name="email"
           placeholder="Email"
           onChange={handleChange}
-          className="border p-2 me-3"
+          className="form-control"
         />
+
         <input
           name="password"
           type="password"
           placeholder="Password"
           onChange={handleChange}
-          className="border p-2 me-3"
+          className="form-control"
         />
-        {/* to populate error message */}
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+
+        {error && (
+          <p style={{ color: "#ffd1d1", fontSize: "14px" }}>
+            {error}
+          </p>
+        )}
 
         <Button
           type="submit"
-          variant="outline-primary"
+          variant="outline-light"
+          size="lg"
         >
           {isSignup ? "Sign Up" : "Login"}
         </Button>
-
       </form>
 
       <Button
-        variant="outline-primary"
-        className="mt-3"
+        variant="link"
+        style={{
+          marginTop: "20px",
+          color: "white",
+          textDecoration: "underline",
+        }}
         onClick={() => setIsSignup(!isSignup)}
       >
-
         {isSignup
           ? "Already have an account? Login"
           : "Don't have an account? Sign up"}
       </Button>
     </div>
-  );
+  </div>
+);
+
 };
