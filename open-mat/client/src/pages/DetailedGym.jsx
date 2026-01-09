@@ -131,7 +131,6 @@ export default function DetailedGym(){
     // date time formatter
     const formatDateTime = (datetimeObj) => {
         const datetime = new Date(datetimeObj);
-        // return isNaN(d.getTime()) ? iso : d.toLocaleString();
         return new Intl.DateTimeFormat("en-US", {
             dateStyle: "medium",
             timeStyle: "short",
@@ -186,7 +185,7 @@ export default function DetailedGym(){
                 Fee: {event.fee === 0.0 ? "None" : event.fee}
               </ListGroup.Item>
               <ListGroup.Item>
-                Open Class: {event.open_class ? "Yes" : "No"}
+                Open Class: {event.open_class ? "Yes" : "Members Only"}
               </ListGroup.Item>
             </ListGroup>
           </Card>
