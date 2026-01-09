@@ -162,7 +162,7 @@ export default function DetailedGym(){
 
       {/* EVENTS */}
       <h3 className="mb-3">Events</h3>
-      <div className="d-flex flex-wrap gap-3 mb-4">
+      <div className="d-flex flex-wrap justify-content-center gap-3 mb-4">
         {gym_events.map(event => (
           <Card key={event.id} style={{ width: '18rem' }}>
             <ListGroup variant="flush">

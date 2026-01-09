@@ -43,7 +43,7 @@ function NavBar({ user, onLogout }) {
             
             {user ? (
             <>
-                <Nav.Link as={Link} to="/events" onClick={handleClose}>Manage Events</Nav.Link>
+                <Nav.Link as={Link} to="/events" onClick={handleClose}>Events</Nav.Link>
                 <Nav.Link as={Link} to="/favorites" onClick={handleClose}>Favorites</Nav.Link>
                 <Nav.Link as={Link} to="/dojo" onClick={handleClose}>Dojo</Nav.Link>
                 <Nav.Link as={Link} to="/profile" onClick={handleClose}>Profile</Nav.Link>
