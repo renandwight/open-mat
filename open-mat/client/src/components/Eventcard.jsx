@@ -1,14 +1,11 @@
 import { Card, Container, ListGroup, Button } from 'react-bootstrap';
 
 function Eventcard({eventsData, onEdit, onDelete}) {
-    // {id: 5, event_date: '2026-01-16T18:30:00Z', gi: true, fee: '10.00', open_class: false}
     const { id, gym_id, event_date, gi, fee, open_class} = eventsData
-    // console.log(eventsData)
     
     // date time formatter
     const formatDateTime = (datetimeObj) => {
         const datetime = new Date(datetimeObj);
-        // return isNaN(d.getTime()) ? iso : d.toLocaleString();
         return new Intl.DateTimeFormat("en-US", {
             dateStyle: "medium",
             timeStyle: "short",
@@ -26,11 +23,9 @@ function Eventcard({eventsData, onEdit, onDelete}) {
                     <ListGroup.Item>Event Date: {formatDateTime(event_date)}</ListGroup.Item>
                     <ListGroup.Item>Gi: {gi===true ? "🥋" : "🚫"}</ListGroup.Item>
                     <ListGroup.Item>Fee: {fee === 0.00 ? "None" : fee}</ListGroup.Item>
-                    <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "No"}</ListGroup.Item>
+                    <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "Members Only"}</ListGroup.Item>
                 </ListGroup>
-
-                {/*need buttons for editing and deleting*/}
-
+                
                 <Card.Body className="d-flex justify-content-between">
                     <Button
                     size="sm"
