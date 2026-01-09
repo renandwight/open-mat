@@ -19,6 +19,14 @@ export default function ReviewCard({ reviewData, onUpdated, onDeleted }) {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState(null);
 
+  const formatDateTime = (datetimeObj) => {
+    const datetime = new Date(datetimeObj);
+    return new Intl.DateTimeFormat("en-US", {
+        dateStyle: "medium",
+        timeStyle: "short",
+    }).format(datetime);
+  };
+
   const cancelEdit = () => {
     setEditRating(rating);
     setEditComment(comment);
@@ -56,9 +64,6 @@ export default function ReviewCard({ reviewData, onUpdated, onDeleted }) {
 
   const deleteReview = async () => {
     setError(null);
-
-    const ok = window.confirm("Delete this review? This cannot be undone.");
-    if (!ok) return;
 
     try {
       setIsDeleting(true);
@@ -163,7 +168,7 @@ export default function ReviewCard({ reviewData, onUpdated, onDeleted }) {
                 </center>
               </Row>
               <Row>
-                <center>{created_at}</center>
+                <center>{formatDateTime(created_at)}</center>
               </Row>
             </Col>
           </Row>
