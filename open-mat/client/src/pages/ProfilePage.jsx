@@ -8,6 +8,8 @@ import { Button } from 'react-bootstrap';
 export default function ProfilePage() {
     const { isAuthenticated, user } = useAuth();
     const navigate = useNavigate();
+    // for sorting reviews..
+    const [sortOption, setSortOption] = useState('date_desc')
 
     const [profile, setProfile] = useState({
         first_name: "",
@@ -76,6 +78,8 @@ export default function ProfilePage() {
             console.error("error updating profile:", err.response?.data);
         }
     };
+
+
     // adding review card below:
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
@@ -109,6 +113,14 @@ export default function ProfilePage() {
     const handleReviewDeleted = (deletedId) => {
         setReviews((prev) => prev.filter((r) => r.id !== deletedId));
     };
+    // sorting 
+    const sortedReviews = [...reviews].sort((a, b) => {
+    if (sortOption === "date_desc") return new Date(b.created_at) - new Date(a.created_at);
+    if (sortOption === "date_asc") return new Date(a.created_at) - new Date(b.created_at);
+    if (sortOption === "gym_asc") return a.gym_name.localeCompare(b.gym_name);
+    if (sortOption === "gym_desc") return b.gym_name.localeCompare(a.gym_name);
+    return 0;
+});
 
     // end of reviewcard code block
 
@@ -153,7 +165,7 @@ export default function ProfilePage() {
                     <form
                         onSubmit={handleSubmit}
                         style={{
-                           backgroundColor: "#e11d2e",
+                            backgroundColor: "#e11d2e",
                             borderRadius: "10px",
                             padding: "20px",
                             maxWidth: "400px",
@@ -230,10 +242,28 @@ export default function ProfilePage() {
                 <hr />
 
                 <h3>My Reviews</h3>
+                    {/* // this is for sorting reviews by date and gym name(alphabetical) */}
+
+                <div style={{ marginBottom: "10px" }}>
+                    <label htmlFor="sort">Sort by: </label>
+                    <select
+                        id="sort"
+                        value={sortOption}
+                        onChange={(e) => setSortOption(e.target.value)}
+                    >
+                        <option value="date_desc">Date (Newest)</option>
+                        <option value="date_asc">Date (Oldest)</option>
+                        <option value="gym_asc">Gym Name (A-Z)</option>
+                        <option value="gym_desc">Gym Name (Z-A)</option>
+                    </select>
+                </div>
+
+    {/* end of sorting reviews code */}
 
                 {reviews.length === 0 && <p>No reviews yet.</p>}
 
-                {reviews.map((review) => (
+
+                {sortedReviews.map((review) => (
                     <ReviewCard
                         key={review.id}
                         reviewData={review}
@@ -241,6 +271,7 @@ export default function ProfilePage() {
                         onDeleted={handleReviewDeleted}
                     />
                 ))}
+
                 {/* end of review card code block */}
 
             </div>
