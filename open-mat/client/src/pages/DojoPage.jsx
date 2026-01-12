@@ -84,7 +84,7 @@ function DojoPage() {
           className="display-1 fw-bold mb-3"
           style={{
             letterSpacing: "0.3em",
-            background: "linear-gradient(to right, #DC143C, #000000)",
+            background: "linear-gradient(to right, #e31c37, #555555)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
@@ -192,7 +192,7 @@ function DojoPage() {
               <div className="card-body">
                 <h5 className="card-title">{technique.name}</h5>
                 <p className="card-text">
-                  <span className="badge bg-primary me-2">
+                  <span className="badge bg-danger me-2">
                     {technique.category_display}
                   </span>
                   <span className="badge bg-secondary">
@@ -222,7 +222,7 @@ function DojoPage() {
         <div
           className="modal show d-block"
           tabIndex="-1"
-          style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+          style={{ backgroundColor: "#555555" }}
           onClick={closeModal}
         >
           <div

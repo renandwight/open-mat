@@ -9,7 +9,7 @@ from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_400_BAD_REQUEST, HTT
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, SAFE_METHODS
 
 
 # Create your views here.
@@ -17,7 +17,7 @@ class All_Gyms(APIView):
     authentication_classes = [TokenAuthentication]
 
     def get_permissions(self):
-        if self.request.method == "POST":
+        if self.request.method == SAFE_METHODS:
             return [IsAuthenticated()]
         return [AllowAny()]
     def get(self, request):
@@ -79,6 +79,18 @@ class Nearby_Gyms(APIView):
 
         return Response(serializer.data)
 
+class My_Gyms(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        gyms=Gym.objects.all()
+        if request.user:
+            gyms=gyms.filter(created_by=request.user.id)
+        else:
+            gyms=[]
+        serializer = GymSerializer(gyms, many=True)
+        return Response(serializer.data)
+    
 #api request looks like http://127.0.0.1:8000/api/gyms/search/?city=Bronx
 class Filtered_Gyms(APIView):
     def get(self, request):

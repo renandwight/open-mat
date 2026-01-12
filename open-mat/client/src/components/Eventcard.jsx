@@ -1,15 +1,20 @@
 import { Card, Container, ListGroup, Button } from 'react-bootstrap';
 
 function Eventcard({eventsData, onEdit, onDelete}) {
-    // {id: 5, event_date: '2026-01-16T18:30:00Z', gi: true, fee: '10.00', open_class: false}
-    const { id, gym_id, event_date, gi, fee, open_class} = eventsData
-    // console.log(eventsData)
+    const { id, gym_id, gym_name, event_date, gi, fee, open_class} = eventsData
+
+    // console.log(gym_name.slice(0,gym_name.indexOf("located")).trim())
+
+    let gym_name_trimmed = gym_name.slice(0,gym_name.indexOf("located")).trim()
     
-    // need date formatter?
-    // const formatDate = (iso) => {
-    //     const d = new Date(iso);
-    //     return isNaN(d.getTime()) ? iso : d.toLocaleString();
-    // };
+    // date time formatter
+    const formatDateTime = (datetimeObj) => {
+        const datetime = new Date(datetimeObj);
+        return new Intl.DateTimeFormat("en-US", {
+            dateStyle: "medium",
+            timeStyle: "short",
+        }).format(datetime);
+    };
 
     if (!eventsData) return <div>Loading...</div>;
 
@@ -19,14 +24,13 @@ function Eventcard({eventsData, onEdit, onDelete}) {
         <Container className="d-flex justify-content-center">
             <Card style={{width: '18rem'}}>
                 <ListGroup variant="flush">
-                    <ListGroup.Item>Event Date: {event_date}</ListGroup.Item>
+                    <ListGroup.Item>{gym_name_trimmed}</ListGroup.Item>
+                    <ListGroup.Item>Event Date: {formatDateTime(event_date)}</ListGroup.Item>
                     <ListGroup.Item>Gi: {gi===true ? "🥋" : "🚫"}</ListGroup.Item>
                     <ListGroup.Item>Fee: {fee === 0.00 ? "None" : fee}</ListGroup.Item>
-                    <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "No"}</ListGroup.Item>
+                    <ListGroup.Item>Open Class: {open_class===true ? "Yes" : "Members Only"}</ListGroup.Item>
                 </ListGroup>
-
-                {/*need buttons for editing and deleting*/}
-
+                
                 <Card.Body className="d-flex justify-content-between">
                     <Button
                     size="sm"

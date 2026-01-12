@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+:root {
+  --brand-red: #e31c37;
+  --brand-gray: #555555;
+  --brand-white: #ffffff;
+  --bs-body-bg: var(--brand-white);
+  --bs-body-color: var(--brand-gray);
+  --bs-primary: var(--brand-red);
+  --bs-secondary: var(--brand-gray);
+  --bs-danger: var(--brand-red);
+  --bs-danger-text-emphasis: var(--brand-red);
+  --bs-danger-bg-subtle: var(--brand-white);
+  --bs-danger-border-subtle: var(--brand-red);
+  --bs-info: var(--brand-gray);
+  --bs-info-text-emphasis: var(--brand-gray);
+  --bs-info-bg-subtle: var(--brand-white);
+  --bs-info-border-subtle: var(--brand-gray);
+  --bs-border-color: var(--brand-gray);
+  --bs-link-color: var(--brand-red);
+  --bs-link-hover-color: var(--brand-gray);
+  --bs-btn-close-color: var(--brand-gray);
+  --bs-nav-link-color: var(--brand-gray);
+  --bs-nav-link-hover-color: var(--brand-red);
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--brand-gray);
+  background-color: var(--brand-white);
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: var(--brand-red);
+}
+
+a:hover {
+  color: var(--brand-gray);
+}
+
+.btn-primary {
+  background-color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-gray) !important;
+  border-color: var(--brand-gray) !important;
+  color: var(--brand-white) !important;
+}
+
+.btn-secondary {
+  background-color: var(--brand-gray) !important;
+  border-color: var(--brand-gray) !important;
+}
+
+.btn-secondary:hover {
+  background-color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  color: var(--brand-white) !important;
+}
+
+.btn-outline-primary {
+  color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--brand-red) !important;
+  border-color: var(--brand-red) !important;
+  color: var(--brand-white) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--brand-gray) !important;
+  border-color: var(--brand-gray) !important;
+  background-color: transparent !important;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--brand-gray) !important;
+  border-color: var(--brand-gray) !important;
+  color: var(--brand-white) !important;
+}
+
+.bg-primary {
+  background-color: var(--brand-red) !important;
+}
+
+.text-primary {
+  color: var(--brand-red) !important;
+}
+
+.border-primary {
+  border-color: var(--brand-red) !important;
+}
+
+.btn-link {
+  color: var(--brand-red);
+}
+
+.btn-link:hover {
+  color: var(--brand-gray);
+}
+
+.btn-outline-info {
+  color: var(--brand-gray);
+  border-color: var(--brand-gray);
+}
+
+.btn-outline-info:hover {
+  background-color: var(--brand-gray);
+  border-color: var(--brand-gray);
+  color: var(--brand-white);
+}
+
+.alert-primary,
+.alert-info {
+  background-color: var(--brand-white);
+  border-color: var(--brand-gray);
+  color: var(--brand-gray);
+}
+
+.btn {
+  border-radius: 999px;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:focus,
+.btn:focus-visible,
+.btn:active,
+.btn.show {
+  box-shadow: 0 0 0 3px var(--brand-red) !important;
+  outline: none !important;
+}
+
+.card,
+.modal-content,
+.border,
+.border-2 {
+  border-radius: 16px;
+  border-color: var(--brand-gray);
+  box-shadow: 0 6px 12px var(--brand-gray);
+}
+
+.card {
+  border-top: 4px solid var(--brand-red);
+}
+
+.form-control,
+.form-select,
+input,
+textarea,
+select {
+  border-radius: 12px;
+  border: 1px solid var(--brand-gray);
+  color: var(--brand-gray);
+}
+
+.form-control:focus,
+.form-select:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 3px var(--brand-red);
+}
+
+.alert-info {
+  background-color: var(--brand-white);
+  border-color: var(--brand-gray);
+  color: var(--brand-gray);
+}
+
+.bg-black {
+  background-color: var(--brand-red);
+}
+
+
+/* Carousel Styling */
+
+.homepage-carousel {
+  max-width: 100%;
+} */
+
+.homepage-carousel .carousel-item {
+  height: 10px;
+}
+
+.homepage-carousel .carousel-img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.homepage-carousel .carousel-item {
+  height: clamp(260px, 45vw, 520px);
+}
+
+/* Homepage cards */
+.homepage-card {
+  text-decoration: none;
+}
+
+.homepage-card:hover {
+  background-color: #e8e8e8
+}
+
+.homepage-community-card {
+  background-color: #e8e8e8;
+}

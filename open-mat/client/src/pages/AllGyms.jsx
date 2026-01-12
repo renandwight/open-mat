@@ -33,11 +33,13 @@ export default function AllGyms(){
                 endpoint=('gyms/search/?q='+searchText)
                 
             }
+            else{
+              return
+            }
             console.log('updating state')
                 
             const response=await api.get(endpoint)
             setGyms(response.data)
-            
             // console.log(response.data)
             
 
@@ -51,7 +53,7 @@ export default function AllGyms(){
 
   return(
     
-<div className="border-2">
+<div className="border-2 gym-search-card">
     <div className="input-group mb-3">
   <input
     type="search"
@@ -105,7 +107,7 @@ export default function AllGyms(){
   </button>
 </div>
 
-      <h2>All Gyms</h2>
+      {gyms.length > 0? null : "Looking for something? Search here!"}
       {gyms.map((g, index) => (
        <GymCard key ={g.id} gymData={g} /> 
       ))}

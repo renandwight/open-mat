@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Offcanvas, Container, Button } from 'react-bootstrap';
 import { HiMenu } from 'react-icons/hi';
+import logo from '../assets/logo.png';
 
 function NavBar({ user, onLogout }) {
   const [show, setShow] = useState(false);
@@ -12,20 +13,21 @@ function NavBar({ user, onLogout }) {
   const handleLogout = () => {
     onLogout();
     setShow(false);
+    window.location.href = '/';
   };
 
   return (
     <>
       <Navbar bg="transparent" className="mb-3">
         <Container>
-          <Link to="/" className="navbar-brand" style={{ fontWeight: 'bold', fontSize: '25px' }}>
-            Open Mat
+          <Link to="/" className="navbar-brand">
+            <img src={logo} alt="Open Mat" style={{ height: '150px', width: 'auto' }} />
           </Link>
           <Button 
             className="hamburger-button"
             onClick={handleShow}
           >
-            <HiMenu style={{ fontSize: '30px', color: 'black' }} />
+            <HiMenu style={{ fontSize: '30px', color: '#555555' }} />
           </Button>
         </Container>
       </Navbar>
@@ -41,10 +43,11 @@ function NavBar({ user, onLogout }) {
             
             {user ? (
             <>
-                <Nav.Link as={Link} to="/events" onClick={handleClose}>Manage Events</Nav.Link>
+                <Nav.Link as={Link} to="/events" onClick={handleClose}>Events</Nav.Link>
                 <Nav.Link as={Link} to="/favorites" onClick={handleClose}>Favorites</Nav.Link>
                 <Nav.Link as={Link} to="/dojo" onClick={handleClose}>Dojo</Nav.Link>
                 <Nav.Link as={Link} to="/profile" onClick={handleClose}>Profile</Nav.Link>
+                <Nav.Link as={Link} to="/gyms/my" onClick={handleClose}>My Gyms</Nav.Link>
             </>
             ) : (
             <Nav.Link as={Link} to="/dojo" onClick={handleClose}>Dojo</Nav.Link>
@@ -67,3 +70,4 @@ function NavBar({ user, onLogout }) {
 }
 
 export default NavBar;
+
