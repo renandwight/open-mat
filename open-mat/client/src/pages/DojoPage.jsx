@@ -192,7 +192,7 @@ function DojoPage() {
               <div className="card-body">
                 <h5 className="card-title">{technique.name}</h5>
                 <p className="card-text">
-                  <span className="badge bg-primary me-2">
+                  <span className="badge bg-danger me-2">
                     {technique.category_display}
                   </span>
                   <span className="badge bg-secondary">
