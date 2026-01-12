@@ -58,14 +58,6 @@ class Command(BaseCommand):
                 'description': 'Bridge to create space, turn to side, slide hips away, insert knee to recover guard.'
             },
             {
-                'name': 'Elbow Escape from Mount',
-                'category': 'escapes',
-                'difficulty': 'beginner',
-                'position': 'mount',
-                'youtube_url': 'https://www.youtube.com/watch?v=Fcs0H_eOyko',
-                'description': 'Trap arm and leg on same side, bridge and roll, or shrimp to recover half guard.'
-            },
-            {
                 'name': 'Back Escape',
                 'category': 'escapes',
                 'difficulty': 'intermediate',
