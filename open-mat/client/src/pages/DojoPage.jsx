@@ -14,7 +14,11 @@ function DojoPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    fetchTechniques();
+    const timer = setTimeout(() => {
+      fetchTechniques();
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, [categoryFilter, difficultyFilter, positionFilter, searchQuery]);
 
   const fetchTechniques = async () => {
